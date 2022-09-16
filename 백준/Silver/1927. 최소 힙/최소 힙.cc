@@ -3,22 +3,17 @@
 using namespace std;
 
 int main() {
-	priority_queue<int, vector<int>, greater<int>> q;
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	int n;
-	cin >> n;
-	while (n--) {
-		int x;
+	cin.tie(0)->sync_with_stdio(0);
+	int n, x;	cin >> n;
+	priority_queue<int, vector<int>, greater<> > Q;
+	for (; n--;) {
 		cin >> x;
-		if (x)
-			q.push(x);
+		if (x)	Q.push(x);
 		else {
-			if (q.empty())
-				cout << "0\n";
+			if (Q.empty())	cout << "0\n";
 			else {
-				cout << q.top() << '\n';
-				q.pop();
+				cout << Q.top() << '\n';
+				Q.pop();
 			}
 		}
 	}
