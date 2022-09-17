@@ -1,0 +1,10 @@
+a,b,c=input().split()
+a,b,c=int(a),int(b),int(c)
+d=int(input())
+c+=d
+b+=(c//60)
+c%=60
+a+=(b//60)
+b%=60
+a%=24
+print(a,b,c)
