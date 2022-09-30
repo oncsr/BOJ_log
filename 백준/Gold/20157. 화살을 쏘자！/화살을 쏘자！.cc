@@ -26,9 +26,11 @@ int main() {
 			int c = gcd(abs(x), abs(y));
 			p = x / c, q = y / c;
 		}
+		/*
 		if (!M[{p, q}])	M[{p, q}] = 1;
 		else	M[{p, q}]++;
-		m = max(m, M[{p, q}]);
+		*/
+		m = max(m, ++M[{p, q}]);
 	}
 	cout << m;
 }
