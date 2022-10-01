@@ -16,7 +16,7 @@ int main() {
 	bool find = false;
 	if (x1 == x2 && x2 == x3)	cout << x1;
 	else {
-		for (i = 1; p1 * i + x1 <= 1000000000; i++) {
+		for (i = 1; p1 * i + x1 <= p1*p2*p3; i++) {
 			if ((p1 * i + x1) % p2 == x2 && (p1 * i + x1) % p3 == x3) {
 				find = true;
 				break;
