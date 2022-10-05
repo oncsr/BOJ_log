@@ -37,16 +37,9 @@ int main() {
 	cin >> v1 >> v2;
 	int vv = dijkstra(v1, v2);
 	int p1 = dijkstra(1, v1);
-	int p2 = dijkstra(v1, N);
-	int p3 = dijkstra(1, v2);
 	int p4 = dijkstra(v2, N);
-	if ((p1 == -1 && p2 == -1) || (p3 == -1 && p4 == -1))	cout << -1;
-	else if ((p1 == -1 && p3 == -1) || (p2 == -1 && p4 == -1))	cout << -1;
+	if (vv == -1 || p1 == -1 || p4 == -1)	cout << -1;
 	else {
-		if (p1 == -1 && p4 == -1)	cout << vv + p2 + p3;
-		else if (p2 == -1 && p3 == -1)	cout << vv + p1 + p4;
-		else if (p1 == -1 || p4 == -1)	cout << vv + p2 + p3;
-		else if (p2 == -1 || p3 == -1)	cout << vv + p1 + p4;
-		else	cout << min(vv + p1 + p4, vv + p2 + p3);
+		cout << min(vv + p1 + p4, vv + dijkstra(1, v2) + dijkstra(v1, N));
 	}
 }
