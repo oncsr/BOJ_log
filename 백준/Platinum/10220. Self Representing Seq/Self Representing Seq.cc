@@ -1,14 +1,2 @@
-#include <iostream>
-using namespace std;
-
-int main() {
-	int T, n; cin >> T;
-	for (; T--;) {
-		cin >> n;
-		if (n == 4)	cout << 2;
-		else if (n == 5)	cout << 1;
-		else if (n > 6)	cout << 1;
-		else	cout << 0;
-		cout << '\n';
-	}
-}
+#include<iostream>
+main(){int T,n,d[7]={0,0,0,0,2,1,0};for(std::cin>>T;T--;){std::cin>>n;std::cout<<(n>6?1:d[n])<<'\n';}}
