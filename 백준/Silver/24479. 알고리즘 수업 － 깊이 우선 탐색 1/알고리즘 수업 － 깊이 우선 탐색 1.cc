@@ -15,6 +15,7 @@ void dfs(int n, int p) {
 }
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	cin >> N >> M >> R;
 	for (; M--;) {
 		cin >> a >> b;
