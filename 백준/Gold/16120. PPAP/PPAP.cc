@@ -2,10 +2,10 @@
 using namespace std;
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	int a = 0, p = 0, prev = 0;
-	string s;
-	cin >> s;
-	for (char i : s) {
+	char s[1000000]{}, i;
+	while (cin >> i) {
 		if (i == 'P') {
 			if (prev && p > 1) {
 				p--;
