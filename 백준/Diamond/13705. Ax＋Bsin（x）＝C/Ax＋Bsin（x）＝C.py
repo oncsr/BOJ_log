@@ -4,16 +4,6 @@ getcontext().prec = 100
 getcontext().rounding = ROUND_HALF_UP
 PI = Decimal('3.141592653589793238462643383279502884')
 
-def power(m, i):
-    if i == 0:
-        return 1
-    g = power(m,i//2)
-    if i % 2 == 1:
-        return m * g * g
-    else:
-        return g * g
-
-
 def mysin(x):
     while x > PI * Decimal('2'):
         x = x - Decimal(str(PI * Decimal('2')))
@@ -34,9 +24,9 @@ def mysin(x):
     ans = x
     while k > 0:
         if i % 4 == 3:
-            ans = ans - (power(x,i)/p)
+            ans = ans - ((x**i)/p)
         else:
-            ans = ans + (power(x,i)/p)
+            ans = ans + ((x**i)/p)
 
         i += 1
         p *= i
