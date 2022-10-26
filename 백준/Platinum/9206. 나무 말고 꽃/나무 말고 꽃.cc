@@ -3,8 +3,6 @@
 #include <cmath>
 using namespace std;
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);	cout.tie(NULL);
 	double v, a, b, h;
 	int n;
 	cin >> v >> n;
@@ -27,11 +25,6 @@ int main() {
 		cur += part1;
 		cur += part2;
 		cur *= M_PI;
-		/*
-		cout.setf(ios::fixed);	cout.precision(10);
-		cout << cur << '\n';
-		*/
-
 
 		if (i == 0) {
 			ans = cur;
