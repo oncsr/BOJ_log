@@ -25,16 +25,6 @@ int main() {
 			c &= (c1 & c2 & c3);
 		}
 		else {
-			/*
-			double r1 = ((double)P[1].second - P[0].second) / (P[1].first - P[0].first);
-			double r2 = ((double)P[2].second - P[0].second) / (P[2].first - P[0].first);
-			bool c1 = (r1 * r2 == -1.0);
-			double r3 = ((double)P[1].second - P[3].second) / (P[1].first - P[3].first);
-			double r4 = ((double)P[2].second - P[3].second) / (P[2].first - P[3].first);
-			bool c2 = (r3 * r4 == -1.0);
-			c &= (c1 & c2);
-			cout << r1 << '\n' << r2 << '\n' << r3 << '\n' << r4 << '\n';
-			*/
 			ll d5 = R(P[0], P[3]);
 			ll d6 = R(P[1], P[2]);
 			bool c1 = (d1 + d2 == d6);
