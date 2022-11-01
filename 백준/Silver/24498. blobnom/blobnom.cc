@@ -3,24 +3,26 @@ using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	int N, arr[1000000]{}, a, b, c, mx = 0;
+	int N, a, b, c, d, mx = 0;
 	cin >> N;
 	for (int i = 0; i < N; i++) {
-		cin >> arr[i];
 		if (i == 0) {
-			a = arr[i];
+			cin >> a;
 			mx = a;
 		}
 		else if (i == 1) {
-			b = arr[i];
-			mx = max(b, mx);
+			cin >> b;
+			mx = max(mx, b);
+		}
+		else if (i == 2) {
+			cin >> c;
+			mx = max(mx, max(b, c));
 		}
 		else {
-			a = arr[i - 2];
-			b = arr[i - 1];
-			c = arr[i];
-			int d = b + min(a, c);
-			mx = max(mx, max(c, d));
+			a = b, b = c;
+			cin >> c;
+			d = max(c, b + min(a, c));
+			mx = max(mx, d);
 		}
 	}
 	cout << mx;
