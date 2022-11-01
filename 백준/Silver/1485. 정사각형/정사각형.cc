@@ -27,10 +27,8 @@ int main() {
 		else {
 			ll d5 = R(P[0], P[3]);
 			ll d6 = R(P[1], P[2]);
-			bool c1 = (d1 + d2 == d6);
-			bool c2 = (d3 + d4 == d5);
-			bool c3 = (d5 == d6);
-			c &= (c1 & c2 & c3);
+			bool c1 = (d5 == d6);
+			c &= c1;
 		}
 		cout << c << '\n';
 	}
