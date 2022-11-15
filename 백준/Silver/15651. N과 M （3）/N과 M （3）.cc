@@ -4,9 +4,9 @@ using namespace std;
 /*
 * 2022.11.15
 * [used algorithm]
-* =>
+* => backtracking
 * [point]
-* =>
+* => 이게 왜 되는거지???
 */
 
 int visit[9]{};
@@ -25,11 +25,7 @@ void R(int n, string ans) {
 	}
 }
 
-void solve() {
-	R(1, "");
-}
-
 int main() {
 	cin >> N >> M;
-	solve();
+	R(1, "");
 }
