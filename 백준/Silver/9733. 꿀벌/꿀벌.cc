@@ -1,24 +1,13 @@
 #include <iostream>
 using namespace std;
 
-int arr[7]{}, s = 0;
-
-void print(int idx) {
-	if (idx == 0)	cout << "Re ";
-	if (idx == 1)	cout << "Pt ";
-	if (idx == 2)	cout << "Cc ";
-	if (idx == 3)	cout << "Ea ";
-	if (idx == 4)	cout << "Tb ";
-	if (idx == 5)	cout << "Cm ";
-	if (idx == 6)	cout << "Ex ";
-	cout << arr[idx] << ' ';
-	cout << (double)arr[idx] / s << '\n';
-}
-
 int main() {
 	cout.setf(ios::fixed);
 	cout.precision(2);
-	string a;
+	int arr[7]{}, s = 0;
+	string a, b[7]{};
+	b[0] = "Re", b[1] = "Pt", b[2] = "Cc", b[3] = "Ea";
+	b[4] = "Tb", b[5] = "Cm", b[6] = "Ex";
 	while (cin >> a) {
 		s++;
 		if (a == "Re")	arr[0]++;
@@ -29,7 +18,8 @@ int main() {
 		if (a == "Cm")	arr[5]++;
 		if (a == "Ex")	arr[6]++;
 	}
-	for (int i = 0; i < 7; i++)	print(i);
+	for (int i = 0; i < 7; i++)
+		cout << b[i] << ' ' << arr[i] << ' ' << (double)arr[i] / s << '\n';
 	cout << "Total " << s << " 1.00";
 	cout.unsetf(ios::fixed);
 }
