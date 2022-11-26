@@ -1,34 +1,33 @@
 #include <stdio.h>
-#include <string.h>
 
-int main(void)
-{
-    int i = 0, j = 0, k = 0;
-    int N, len;
-    char w[100][100];
-    int num;
+int main(void) {
+	char a[100][101] = {};
+	int count = 0;
+	int N;
+	scanf("%d", &N);
 
-    scanf("%d", &N);
-    num = N;
+	for (int i = 0; i < N; i++) {
+		scanf("%s", a + i);
 
-    for (i = 0; i < N; i++)
-    {
-        scanf("%s", w[i]);
-        len = strlen(w[i]);
+		int alphabet[26] = {};
+		bool success = true;
+		char temp = '0';
 
-        for (j = 0; j < len - 1; j++)
-        {
-            for (k = 0; k < len - 2; k++)
-            {
-                if (w[i][j] != w[i][j + 1] && w[i][j] == w[i][j + 2 + k])
-                {
-                    num -= 1;
-                    j = len;
-                    break;
-                }
-            }
-        }
-    }
-    printf("%d", num);
-    return 0;
+		for (int j = 0; *(*(a + i) + j) != NULL; j++) {
+
+			char now = *(*(a + i) + j) - 'a';
+			if (alphabet[now] != 0) {
+				if (now != temp) {
+					success = false;
+					break;
+				}
+			}
+			temp = *(*(a + i) + j) - 'a';
+			alphabet[*(*(a + i) + j) - 'a']++;
+		}
+		if (success == true)
+			count++;
+	}
+	printf("%d", count);
+	return 0;
 }
