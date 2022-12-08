@@ -19,7 +19,7 @@ int main() {
 			}
 		}
 	}
-	int k = 10;
+	int k = 4;
 	while (k--) {
 		for (int i = 1; i <= N; i++) {
 			for (int j = 1; j <= M; j++) {
