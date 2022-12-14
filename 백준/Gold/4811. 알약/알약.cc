@@ -3,6 +3,7 @@ using namespace std;
 using ll = long long;
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	ll t, n, d[31][31]{}, b[31]{};
 	d[1][1] = 1, b[1] = 1;
 	for (int i = 1; i < 30; i++) {
