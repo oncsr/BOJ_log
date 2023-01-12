@@ -3,6 +3,7 @@
 using namespace std;
 
 int main() {
+    cin.tie(0)->sync_with_stdio(0);
 	int T;
 	for (cin >> T; T--;) {
 		int N, M, K, x, y, zeros = 0, ones = 0, cho[4][2], minus = 0, plus = 0;
