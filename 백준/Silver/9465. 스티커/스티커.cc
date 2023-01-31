@@ -10,10 +10,9 @@ int main(){
         for(int i=2;i<N+2;i++)  cin>>d[i][0];
         for(int i=2;i<N+2;i++) {
             cin>>d[i][1];
-            d[i][0] += max({d[i-1][1], d[i-2][0], d[i-2][1]});
-            d[i][1] += max({d[i-1][0], d[i-2][0], d[i-2][1]});
-            mx = max({mx, d[i][0], d[i][1]});
+            d[i][0] += max(d[i-1][1], d[i-2][1]);
+            d[i][1] += max(d[i-1][0], d[i-2][0]);
         }
-        cout<<mx<<'\n';
+        cout<<max(d[N+1][0], d[N+1][1])<<'\n';
     }
 }
