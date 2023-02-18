@@ -4,6 +4,7 @@ using namespace std;
 int N, arr[500000]{}, c = 0, ans = -1, K;
 
 void merge(int p, int q, int r) {
+	if (K < 0)	return;
 	sort(arr + p, arr + r + 1);
 	if (K <= r - p + 1 && K >= 0) {
 		ans = arr[p + K - 1];
@@ -19,6 +20,7 @@ void merge_sort(int p, int r) {
 		merge_sort(p, q);
 		merge_sort(q + 1, r);
 		merge(p, q, r);
+		if (K < 0)	return;
 	}
 }
 
