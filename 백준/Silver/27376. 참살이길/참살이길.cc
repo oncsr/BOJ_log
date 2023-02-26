@@ -9,6 +9,7 @@ struct sinho {
 bool cmp(sinho a, sinho b) { return a.x < b.x; }
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	ll n, k;
 	cin >> n >> k;
 	vector<sinho> V;
