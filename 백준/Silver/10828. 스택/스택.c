@@ -1,40 +1,41 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
 
 int arr[10000] = { 0 };
-int index = 0;
+int id = 0;
 
 void push(int ab) {
-	arr[index] = ab;
-	index++;
+	arr[id] = ab;
+	id++;
 }
 
 void pop() {
-	if (index == 0)
+	if (id == 0)
 		printf("-1\n");
 	else {
-		printf("%d\n", arr[index - 1]);
-		arr[index - 1] = 0;
-		index--;
+		printf("%d\n", arr[id - 1]);
+		arr[id - 1] = 0;
+		id--;
 	}
 }
 
 void size() {
-	printf("%d\n", index);
+	printf("%d\n", id);
 }
 
 void empty() {
-	if (index == 0)
+	if (id == 0)
 		printf("1\n");
 	else
 		printf("0\n");
 }
 
 void top() {
-	if (index == 0)
+	if (id == 0)
 		printf("-1\n");
 	else
-		printf("%d\n", arr[index - 1]);
+		printf("%d\n", arr[id - 1]);
 }
 
 int main() {
