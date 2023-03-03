@@ -6,11 +6,10 @@ using namespace std;
 int solution(int n, int m, vector<int> section) {
     int answer = 0;
     int end = 0;
-    for (int i = 0; i < section.size(); i++) {
-        if (section[i] <= end)    continue;
+    for (int i : section) {
+        if (i < end) continue;
         answer++;
-        end = section[i] + m - 1;
+        end = i + m;
     }
-
     return answer;
 }
