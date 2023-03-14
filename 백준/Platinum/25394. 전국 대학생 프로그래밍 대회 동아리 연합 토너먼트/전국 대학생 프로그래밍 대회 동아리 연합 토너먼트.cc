@@ -14,27 +14,13 @@ int main() {
 	// 모든 사람은 승자를 제외하고 1번씩만 진다.
 	// lose 배열을 한 번 돌면 지지 않은 사람 두 명이 나오고,
 	// 각각 최종 우승자와, 누락된 사람이 뜰 것이다.
-	int total[(1 << 20) + 1]{}; // total[i] = i번 참가자가 경기를 한 횟수
-	// 1 <= i < N이면, total[i] = 2^(N-i)
-	// i == N이면,     total[i] = 2
-	// 모든 참가자는 우승자를 제외하고, win[i] + 1 == total[i] 이다.
-	int win_check[21]{};  // win_check[i] = i번 우승한 사람의 수
-	// 0 <= i < N이면, win_check[i] = 2^(N-(i+1))
-	// i == N이면,     win_check[i] = 1
-	// 따라서, win_check 배열을 한 번 돌면서 식을 만족하지 않는 값이 존재하면,
-	// 그 부분에서 누락이 일어났음을 알 수 있다.
-	// 정확히는, 하나가 누락이 되었으므로 반드시
-	// 어떠한 win_check[i] = 2^(N-(i+1)) + 1 인 값이 존재한다.
-	// 누락이 i에서 일어났다면, i번 이긴 사람들 중 한 명이 이긴 경기가 누락되었다.
-
+    
 	int N;
 	cin >> N;
 	for (int i = 0; i < (1 << N) - 2; i++) {
 		cin >> arr[i].first >> arr[i].second;
 		win[arr[i].first]++;
 		lose[arr[i].second]++;
-		total[arr[i].first]++;
-		total[arr[i].second]++;
 	}
 	int LOSE = -1, LOSE_POSSIBLE = -1, WIN = -1, WIN_POSSIBLE = -1;
 	int multiwin = 0;
@@ -111,11 +97,9 @@ int main() {
 				// 밑에 있는 애들 다 제외시키고 vis가 0인 애들만 고려하기
 				int vis[(1 << 20) + 1]{};
 				ii arr2[(1 << 20) + 1]{};
-				for (int i = 0; i < loser_wins; i++) {
-					for (int j = 1; j <= (1 << N); j++) {
-						if (win[j] == i)	vis[j]++;
-					}
-				}
+                for (int i = 1; i <= (1 << N); i++) {
+                    if (win[i] < loser_wins)    vis[i]++;
+                }
 				int ERROR_A = -1, ERROR_B = -1;
 				for (int i = 0; i < (1 << N) - 2; i++) {
 					if (vis[arr[i].second])	continue;
