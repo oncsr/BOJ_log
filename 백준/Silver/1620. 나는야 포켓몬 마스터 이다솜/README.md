@@ -4,11 +4,11 @@
 
 ### 성능 요약
 
-메모리: 58492 KB, 시간: 336 ms
+메모리: 25528 KB, 시간: 216 ms
 
 ### 분류
 
-자료 구조(data_structures), 해시를 사용한 집합과 맵(hash_set)
+자료 구조, 해시를 사용한 집합과 맵
 
 ### 문제 설명
 
@@ -76,7 +76,7 @@
 
 <p>이다솜 : 그럼! 일단 사천왕을 이기고 오겠어!</p>
 
-<p><img alt="" src="" style="height:181px; width:274px"></p>
+<p><img alt="" src="https://www.acmicpc.net/upload/201004/p8.PNG" style="height:181px; width:274px"></p>
 
 <p>이다솜 : 여기가 사천왕과 대결하려면 가야하는 곳인가..</p>
 
