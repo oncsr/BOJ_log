@@ -1,27 +1,19 @@
 #include <iostream>
 #include <map>
-#include <set>
 using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	map<int, int> A;
-	map<int, int> B;
-	set<int> G;
+	map<int, int> M;
 	int n, m, a, s = 0;
-	cin >> n >> m;
-	while (n--) {
+	for (cin >> n >> m; n--;) {
 		cin >> a;
-		A[a] = 1;
-		G.insert(a);
+		M[a]++;
+		s++;
 	}
-	while (m--) {
+	for (; m--;) {
 		cin >> a;
-		B[a] = 1;
-		G.insert(a);
+		M[a] ? s-- : s++;
 	}
-	s = G.size();
-	for (auto& i : G)
-		if (A[i] && B[i])	s--;
 	cout << s;
 }
