@@ -5,30 +5,18 @@ using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	cout.tie(0);
-	map<string, int> A;
-	map<string, int> B;
-	int n, m, s = 0;
-	cin >> n >> m;
-	string a;
+	map<string, int> M;
 	set<string> S;
-	set<string> G;
-	while (n--) {
+	int n, m;
+	string a;
+	for (cin >> n >> m; n--;) {
 		cin >> a;
-		A[a] = 1;
-		S.insert(a);
+		M[a]++;
 	}
-	while (m--) {
+	for (; m--;) {
 		cin >> a;
-		B[a] = 1;
-		S.insert(a);
+		if (M[a])	S.insert(a);
 	}
-	for (auto& i : S) {
-		if (A[i] && B[i]) {
-			s++;
-			G.insert(i);
-		}
-	}
-	cout << s << '\n';
-	for (auto& i : G)	cout << i << '\n';
+	cout << S.size() << '\n';
+	for (string i : S)	cout << i << '\n';	
 }
