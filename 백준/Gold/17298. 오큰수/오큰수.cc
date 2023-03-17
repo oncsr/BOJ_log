@@ -1,32 +1,19 @@
 #include <iostream>
 #include <stack>
-#include <vector>
 using namespace std;
 
 int main() {
-	int n;
-	cin >> n;
-	int arr[1000001];
-	for (int i = 1; i <= n; i++)
-		cin >> arr[i];
-	stack<int> S;
-	vector<int> ans;
-	ans.push_back(-1);
-	S.push(arr[n]);
-	for (n--; n > 0;n--) {
-		if (arr[n] >= S.top()) {
-			while (!S.empty() && arr[n] >= S.top())
-				S.pop();
-			if (S.empty())
-				ans.push_back(-1);
-			else
-				ans.push_back(S.top());
+	cin.tie(0)->sync_with_stdio(0);
+	int N, arr[1000000]{}, a;
+	stack<pair<int, int> > S;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		cin >> a;
+		while (!S.empty() && a > S.top().first) {
+			arr[S.top().second] = a;
+			S.pop();
 		}
-		else
-			ans.push_back(S.top());
-		S.push(arr[n]);
+		S.push({ a, i });
 	}
-	for (int i = ans.size() - 1; i >= 0; i--)
-		cout << ans[i] << ' ';
-	cout << '\n';
+	for (int i = 0; i < N; i++)	cout << (arr[i] ? arr[i] : -1) << ' ';
 }
