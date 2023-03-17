@@ -1,16 +1,17 @@
 #include <iostream>
+#include <map>
 using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	int N, M, a;
-	bool arr[20000001]{};
-	for (cin >> N; N--;) {
+	map<int, bool> M;
+	int n, m, a;
+	for (cin >> n; n--;) {
 		cin >> a;
-		arr[a + 10000000] |= true;
+		M[a] = true;
 	}
-	for (cin >> M; M--;) {
+	for (cin >> m; m--;) {
 		cin >> a;
-		cout << (arr[a + 10000000] ? 1 : 0) << ' ';
+		cout << (M[a] ? "1 " : "0 ");
 	}
 }
