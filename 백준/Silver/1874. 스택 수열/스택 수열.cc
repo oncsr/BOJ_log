@@ -1,34 +1,25 @@
 #include <iostream>
+#include <vector>
 #include <stack>
 using namespace std;
 
 int main() {
-	int n, cur = 1, a, arr[100001]{}, no = 0;
-	cin >> n;
-	string ans = "";
-	for (int i = 0; i < n; i++) {
+	cin.tie(0)->sync_with_stdio(0);
+	int N, a, s = 1, now = 1;
+	stack<int> S;
+	vector<char> V;
+	for (cin >> N; N--;) {
 		cin >> a;
-		if (a >= cur) {
-			for (int j = cur; j <= a; j++) {
-				if (!arr[j]) {
-					arr[j] = 1;
-					ans += "+\n";
-				}
-			}
+		while (s <= a) {
+			S.push(s++);
+			V.push_back('+');
 		}
-		else {
-			for (int j = cur - 1; j >= a; j--) {
-				if (arr[j] == 1 && j != a) {
-					cout << "NO";
-					no++;
-					break;
-				}
-			}
+		if (S.empty() || S.top() != a) {
+			cout << "NO";
+			return 0;
 		}
-		if (no)	break;
-		cur = a;
-		ans += "-\n";
-		arr[a] = 2;
+		S.pop();
+		V.push_back('-');
 	}
-	if (!no)	cout << ans;
+	for (char i : V)	cout << i << '\n';
 }
