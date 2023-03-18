@@ -4,17 +4,18 @@ using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	int n, x;	cin >> n;
-	priority_queue<int, vector<int>, greater<> > Q;
-	for (; n--;) {
-		cin >> x;
-		if (x)	Q.push(x);
-		else {
-			if (Q.empty())	cout << "0\n";
+	int N, a;
+	priority_queue<int, vector<int>, greater<> > PQ;
+	for (cin >> N; N--;) {
+		cin >> a;
+		if (!a) {
+			if (PQ.empty())	cout << 0 << '\n';
 			else {
-				cout << Q.top() << '\n';
-				Q.pop();
+				cout << PQ.top() << '\n';
+				PQ.pop();
 			}
+			continue;
 		}
+		PQ.push(a);
 	}
 }
