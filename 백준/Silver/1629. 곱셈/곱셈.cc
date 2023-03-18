@@ -1,21 +1,18 @@
 #include <iostream>
 using namespace std;
-typedef unsigned long long ll;
+using ll = long long;
 
-ll power(ll x, ll n, ll c) {
-	if (n == 0)
-		return 1;
-	else {
-		ll part = power(x, n / 2, c);
-		ll result = part % c * part % c;
-		if (n % 2 == 1)
-			result = result * x % c;
-		return result % c;
-	}
+ll P(ll a, ll b, ll c) {
+	if (b == 0)	return 1;
+	if (b == 1)	return a;
+	ll part = P(a, b / 2, c);
+	if (b % 2)	return ((part * part) % c) * a % c;
+	return part * part % c;
 }
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	ll a, b, c;
 	cin >> a >> b >> c;
-	cout << power(a, b, c) % c << '\n';
+	cout << P(a, b, c) % c;
 }
