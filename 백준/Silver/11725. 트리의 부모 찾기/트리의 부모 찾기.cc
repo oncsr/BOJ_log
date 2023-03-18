@@ -1,34 +1,23 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+int N, a, b;
+vector<vector<int> > V(100001);
+int D[100001]{};
 
-int N;
-int parent[100001];
-vector<vector<int> > Tree(100001);
-
-void dfs(int k) {
-	for (int i = 0; i < Tree[k].size(); i++) {
-		int child = Tree[k][i];
-		if (parent[child] == 0) {
-			parent[child] = k;
-			dfs(child);
-		}
-	}
+void dfs(int n, int p) {
+	D[n] = p;
+	for (int next : V[n])if (next != p)dfs(next, n);
 }
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	cin >> N;
-	for (int i = 0; i < N - 1; i++) {
-		int a, b;
+	for (int i = 1; i < N; i++) {
 		cin >> a >> b;
-		Tree[a].push_back(b);
-		Tree[b].push_back(a);
+		V[a].push_back(b);
+		V[b].push_back(a);
 	}
-
-	parent[1] = -1;
-	dfs(1);
-
-	for (int i = 2; i <= N; i++) {
-		cout << parent[i] << '\n';
-	}
+	dfs(1, 0);
+	for (int i = 2; i <= N; i++)	cout << D[i] << '\n';
 }
