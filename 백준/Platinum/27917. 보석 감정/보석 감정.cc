@@ -3,6 +3,7 @@
 using namespace std;
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	int N, s, Q = 15000, p, next = 2;
 	cin >> N >> s;
 	int A[1001]{};	// 목걸이 A의 i번 보석의 종류 번호(1 ~ 26)
@@ -60,5 +61,5 @@ int main() {
 		}
 	}
 	cout << "! 0" << endl;
-
+	return 0;
 }
