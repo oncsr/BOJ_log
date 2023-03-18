@@ -3,36 +3,37 @@
 using namespace std;
 
 int main() {
-	int N, M, a, s = 0;
+	cin.tie(0)->sync_with_stdio(0);
+	int N, M, a;
 	cin >> N >> M;
-	deque<int> D;
-	for (int i = 1; i <= N; i++)	D.push_back(i);
+	deque<int> DQ;
+	for (int i = 1; i <= N; i++)	DQ.push_back(i);
+	int s = 0;
 	for (; M--;) {
-		deque<int> D1;
-		deque<int> D2;
-		D1 = D2 = D;
-		int t1 = 0, t2 = 0;
 		cin >> a;
-		while (D1.front() != a) {
-			D1.push_back(D1.front());
-			D1.pop_front();
-			t1++;
+		deque<int> left = DQ;
+		deque<int> right = DQ;
+		int le = 0, ri = 0;
+		
+		while (left.front() != a) {
+			le++;
+			left.push_back(left.front());
+			left.pop_front();
 		}
-		D1.pop_front();
-		while (D2.front() != a) {
-			D2.push_front(D2.back());
-			D2.pop_back();
-			t2++;
+		while (right.front() != a) {
+			ri++;
+			right.push_front(right.back());
+			right.pop_back();
 		}
-		D2.pop_front();
-		if (t1 < t2) {
-			s += t1;
-			D = D1;
+		if (le > ri) {
+			DQ = right;
+			s += ri;
 		}
 		else {
-			s += t2;
-			D = D2;
+			DQ = left;
+			s += le;
 		}
+		DQ.pop_front();
 	}
 	cout << s;
 }
