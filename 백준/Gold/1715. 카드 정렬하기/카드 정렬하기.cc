@@ -1,36 +1,26 @@
 #include <iostream>
 #include <queue>
-#include <vector>
 using namespace std;
-typedef long long ll;
+using ii = pair<int, int>;
 
 int main() {
-	int n;
-	cin >> n;
-	priority_queue<int, vector<int>, greater<> > Q;
-	for (int i = 0; i < n; i++) {
-		int a;
+	cin.tie(0)->sync_with_stdio(0);
+
+	priority_queue<int, vector<int>, greater<> > PQ;
+	int N, a, b;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
 		cin >> a;
-		Q.push(a);
+		PQ.push(a);
 	}
-	ll sum = 0, ans = 0;
-	while (!Q.empty()) {
-		int a = Q.top();
-		Q.pop();
-		int b = 0;
-		if (!Q.empty()) {
-			b = Q.top();
-			Q.pop();
-		}
-		sum = ((ll)a + (ll)b);
-		ans += sum;
-		if (Q.empty())
-			break;
-		else
-			Q.push(sum);
+	int s = 0;
+	while (PQ.size() > 1) {
+		a = PQ.top();
+		PQ.pop();
+		b = PQ.top();
+		PQ.pop();
+		s += a + b;
+		PQ.push(a + b);
 	}
-	if (n == 1)
-		cout << "0\n";
-	else
-		cout << ans << '\n';
+	cout << s;
 }
