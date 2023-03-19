@@ -1,25 +1,20 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
 int main() {
-	string c;
-	cin >> c;
-	int arr[9] = { 0 };
-	int max = 0;
-	for (int i = 0; i < c.size(); i++) {
-		if (c[i] == '9')
-			arr[6]++;
-		else
-			arr[c[i] - 48]++;
+	cin.tie(0)->sync_with_stdio(0);
+
+	string s;
+	cin >> s;
+	int arr[10]{};
+	for (char i : s) {
+		if (i == '6' || i == '9') {
+			if (arr[6] > arr[9])	arr[9]++;
+			else	arr[6]++;
+		}
+		else	arr[i - '0']++;
 	}
-	if (arr[6] % 2 == 0)
-		arr[6] /= 2;
-	else
-		arr[6] = arr[6] / 2 + 1;
-	for (int i = 0; i < 10; i++) {
-		if (arr[i] > max)
-			max = arr[i];
-	}
-	cout << max << '\n';
+	int mx = 0;
+	for (int i = 0; i < 10; i++)	mx = max(mx, arr[i]);
+	cout << mx;
 }
