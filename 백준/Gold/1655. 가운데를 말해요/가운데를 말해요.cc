@@ -1,48 +1,38 @@
 #include <iostream>
 #include <queue>
-#include <vector>
 using namespace std;
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	priority_queue<int, vector<int>, greater<> > Q1;	// 오름차순
-	priority_queue<int> Q2;								// 내림차순
-	int N;
+	cin.tie(0)->sync_with_stdio(0);
+	priority_queue<int, vector<int>, greater<> > upper;
+	priority_queue<int, vector<int>, less<> > lower;
+	int N, a;
 	cin >> N;
-	int mid;
-	while (N--) {
-		int a;
+	for (int i = 0; i < N; i++) {
 		cin >> a;
-		if (Q2.empty())
-			Q2.push(a);
-		else {
-			if (a > Q2.top()) {
-				if (Q2.size() == Q1.size()) {
-					if (a > Q1.top()) {
-						int g = Q1.top();
-						Q2.push(g);
-						Q1.pop();
-						Q1.push(a);
-					}
-					else
-						Q2.push(a);
-				}
-				else
-					Q1.push(a);
+		if (lower.empty())
+			lower.push(a);
+		else if (upper.empty()) {
+			if (a < lower.top()) {
+				upper.push(lower.top());
+				lower.pop();
+				lower.push(a);
 			}
-			else {
-				if (Q2.size() == Q1.size())
-					Q2.push(a);
-				else {
-					int g = Q2.top();
-					Q2.pop();
-					Q1.push(g);
-					Q2.push(a);
-				}
+			else	upper.push(a);
+		}
+		else {
+			if (a <= upper.top())	lower.push(a);
+			else	upper.push(a);
+			if (lower.size() > upper.size() + 1) {
+				upper.push(lower.top());
+				lower.pop();
+			}
+			else if (upper.size() > lower.size()) {
+				lower.push(upper.top());
+				upper.pop();
 			}
 		}
-		cout << Q2.top() << '\n';
+		cout << lower.top() << '\n';
 	}
+
 }
