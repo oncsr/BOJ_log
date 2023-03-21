@@ -8,7 +8,7 @@
 
 ### 분류
 
-분할 정복(divide_and_conquer), 분할 정복을 이용한 거듭제곱(exponentiation_by_squaring), 선형대수학(linear_algebra), 수학(math)
+수학, 분할 정복, 분할 정복을 이용한 거듭제곱, 선형대수학
 
 ### 문제 설명
 
