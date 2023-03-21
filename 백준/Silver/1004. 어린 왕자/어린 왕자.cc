@@ -1,17 +1,21 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 int main() {
-	int T, x, y, a, b, n, c, d, r, s;
+	cin.tie(0)->sync_with_stdio(0);
+
+	int T;
 	for (cin >> T; T--;) {
-		cin >> x >> y >> a >> b;
-		s = 0;
-		for (cin >> n; n--;) {
-			cin >> c >> d >> r;
-			int r1 = (c - x) * (c - x) + (d - y) * (d - y);
-			int r2 = (c - a) * (c - a) + (d - b) * (d - b);
-			if ((r1 < r * r && r2 > r * r) || (r1 > r * r && r2 < r * r))	s++;
+		int a, b, c, d, n, s = 0, e, f, r;
+		for (cin >> a >> b >> c >> d >> n; n--;) {
+			cin >> e >> f >> r;
+			int d1 = (e - a) * (e - a) + (f - b) * (f - b);
+			int d2 = (e - c) * (e - c) + (f - d) * (f - d);
+			bool a = d1 < r* r, b = d2 < r* r;
+			s += (int)(a ^ b);
 		}
 		cout << s << '\n';
 	}
+
 }
