@@ -1,22 +1,24 @@
 #include <iostream>
 #include <algorithm>
-#include <vector>
 using namespace std;
+using ii = pair<int, int>;
+
+bool cmp(ii a, ii b) {
+	if (a.second == b.second)	return a.first < b.first;
+	return a.second < b.second;
+}
 
 int main() {
-	int n, a, b, s = 0, c = 0;
-	cin >> n;
-	vector<pair<int, int> > V;
-	for (int i = 0; i < n; i++) {
-		cin >> a >> b;
-		V.push_back({b,a});
+	cin.tie(0)->sync_with_stdio(0);
+	int N, s = 0;
+	ii arr[100000]{};
+	cin >> N;
+	for (int i = 0; i < N; i++)	cin >> arr[i].first >> arr[i].second;
+	sort(arr, arr + N, cmp);
+	int ans = 1;
+	ii now = arr[0];
+	for (int i = 1; i < N; i++) {
+		if (arr[i].first >= now.second)	ans++, now = arr[i];
 	}
-	sort(V.begin(), V.end());
-	for (int i = 0; i < n; i++) {
-		if (c <= V[i].second) {
-			s++;
-			c = V[i].first;
-		}
-	}
-	cout << s;
+	cout << ans;
 }
