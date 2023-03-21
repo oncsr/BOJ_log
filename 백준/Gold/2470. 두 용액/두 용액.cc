@@ -1,57 +1,26 @@
 #include <iostream>
 #include <algorithm>
-#include <cmath>
 using namespace std;
 
-bool absmin(int a, int b){
-	return a < b;
-}
-
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(0)->sync_with_stdio(0);
 
-	int n;
-	cin >> n;
-	int arr[100001];
-	for (int i = 0; i < n; i++)
-		cin >> arr[i];
+	int N, arr[100000]{};
+	cin >> N;
+	for (int i = 0; i < N; i++)	cin >> arr[i];
+	sort(arr, arr + N);
+	int mn = 2000000001;
+	int a = -1000000001, b = 1000000001;
+	int s = 0, e = N - 1;
+	while (s < e) {
+		if (abs(arr[s] + arr[e]) < mn) {
+			a = arr[s], b = arr[e];
+			mn = abs(arr[s] + arr[e]);
+		}
+		
+		if (arr[s] + arr[e] < 0)	s++;
+		else	e--;
 
-	sort(arr, arr + n);
-	int min;
-	int start = 0;
-	int end = n - 1;
-	int lq1, lq2;
-	int fklq1, fklq2;
-	for (int i = 0; i < n-1; i++) {
-		if (i == 0) {
-			min = arr[end] + arr[start];
-			fklq1 = arr[end];
-			fklq2 = arr[start];
-			if (min < 0)
-				start++;
-			else
-				end--;
-			min = abs(min);
-			lq1 = fklq1;
-			lq2 = fklq2;
-			continue;
-		}
-		else {
-			int temp = arr[end] + arr[start];
-			fklq1 = arr[end];
-			fklq2 = arr[start];
-			if (temp < 0)
-				start++;
-			else
-				end--;
-			temp = abs(temp);
-			if (absmin(temp, min)) {
-				lq1 = fklq1;
-				lq2 = fklq2;
-				min = abs(temp);
-			}
-		}
 	}
-	cout << lq2 << ' ' << lq1 << '\n';
+	cout << a << ' ' << b;
 }

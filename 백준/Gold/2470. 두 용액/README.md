@@ -8,7 +8,7 @@
 
 ### 분류
 
-이분 탐색(binary_search), 정렬(sorting), 두 포인터(two_pointer)
+정렬, 이분 탐색, 두 포인터
 
 ### 문제 설명
 
