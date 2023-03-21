@@ -2,28 +2,26 @@
 using namespace std;
 
 int main() {
-	int n;
-	cin >> n;
-	while (n > 0) {
-		int m[35][35];
-		long long d[35][35]{};
-		string a;
-		for (int i = 1; i <= n; i++) {
-			cin >> a;
-			for (int j = 1; j <= n; j++)
-				m[i][j] = a[j - 1] - '0';
-		}
-		d[1][1] = 1;
-		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j <= n; j++) {
-				if (i == n && j == n)	break;
-				if (d[i][j]) {
-					if (i + m[i][j] <= n)	d[i + m[i][j]][j] += d[i][j];
-					if (j + m[i][j] <= n)	d[i][j + m[i][j]] += d[i][j];
-				}
+	cin.tie(0)->sync_with_stdio(0);
+	int N;
+	for (cin >> N; N != -1; cin >> N) {
+		char map[100][100]{};
+		long long ans[100][100]{};
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++)
+				cin >> map[i][j];
+
+		ans[0][0] = 1;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (map[i][j] == '0')	continue;
+				if (!ans[i][j])	continue;
+				int right = j + (map[i][j] - '0');
+				int down = i + (map[i][j] - '0');
+				if (right < N)	ans[i][right] += ans[i][j];
+				if (down < N)	ans[down][j] += ans[i][j];
 			}
 		}
-		cout << d[n][n] << '\n';
-		cin >> n;
+		cout << ans[N - 1][N - 1] << '\n';
 	}
 }

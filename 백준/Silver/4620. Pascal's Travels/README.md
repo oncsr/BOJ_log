@@ -1,14 +1,14 @@
-# [Silver II] Pascal's Travels - 4620 
+# [Silver I] Pascal's Travels - 4620 
 
 [문제 링크](https://www.acmicpc.net/problem/4620) 
 
 ### 성능 요약
 
-메모리: 2024 KB, 시간: 0 ms
+메모리: 2020 KB, 시간: 0 ms
 
 ### 분류
 
-다이나믹 프로그래밍(dp)
+다이나믹 프로그래밍
 
 ### 문제 설명
 
