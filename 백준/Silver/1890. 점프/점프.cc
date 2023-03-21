@@ -2,22 +2,24 @@
 using namespace std;
 
 int main() {
-	int m[101][101];
-	long long d[101][101]{};
-	int n;
-	cin >> n;
-	for (int i = 1; i <= n; i++)
-		for (int j = 1; j <= n; j++)
-			cin >> m[i][j];
-	d[1][1] = 1;
-	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= n; j++) {
-			if (i == n && j == n)	break;
-			if (d[i][j]) {
-				if (i + m[i][j] <= n)	d[i + m[i][j]][j] += d[i][j];
-				if (j + m[i][j] <= n)	d[i][j + m[i][j]] += d[i][j];
-			}
+	cin.tie(0)->sync_with_stdio(0);
+	int N, map[100][100]{};
+	long long ans[100][100]{};
+	cin >> N;
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++)
+			cin >> map[i][j];
+
+	ans[0][0] = 1;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (!map[i][j])	continue;
+			if (!ans[i][j])	continue;
+			int right = j + map[i][j];
+			int down = i + map[i][j];
+			if (right < N)	ans[i][right] += ans[i][j];
+			if (down < N)	ans[down][j] += ans[i][j];
 		}
 	}
-	cout << d[n][n];
+	cout << ans[N - 1][N - 1];
 }
