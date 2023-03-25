@@ -1,58 +1,59 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	int N, s, Q = 15000, p, next = 2;
+	
+	int N, s;
 	cin >> N >> s;
-	int A[1001]{};	// 목걸이 A의 i번 보석의 종류 번호(1 ~ 26)
-	A[1] = 1;
-	vector<int> num1(27);	// 목걸이 A의 보석 종류 번호 중 대표 1개
-	num1[1] = 1;
 
-	int B[1001]{};
-	B[1] = 1;
-	vector<int> num2(27);
-	num2[1] = 1;
+	random_device rd;
+	mt19937_64 mte(rd());
+	vector<int> rp1, rp2;
+	for (int i = 1; i <= N; i++) {
+		rp1.push_back(i);
+		rp2.push_back(i);
+	}
+	shuffle(rp1.begin(), rp1.end(), mte);
+	shuffle(rp2.begin(), rp2.end(), mte);
 
-	for (int i = 2; i <= N; i++) {
-
-		for (int j = 1; j < next; j++) {
-			cout << "? A " << num1[j] << " A " << i << endl;
-			Q--;
+	int arr[26]{};
+	arr[0] = rp1[0];
+	int id1 = 1, p;
+	for (int i = 1; i < N; i++) {
+		bool find = false;
+		for (int j = 0; j < id1; j++) {
+			cout << "? A " << arr[j] << " A " << rp1[i] << endl;
 			cin >> p;
 			if (p) {
-				A[i] = j;
+				find = true;
 				break;
 			}
 		}
-		if (!A[i]) {
-			num1[next] = i;
-			A[i] = next++;
-		}
+		if (!find)	arr[id1++] = rp1[i];
+		if (id1 > 25)	break;
 	}
-	int next2 = 2;
-	for (int i = 2; i <= N; i++) {
-		for (int j = 1; j < next2; j++) {
-			cout << "? B " << num2[j] << " B " << i << endl;
-			Q--;
+
+	int arr2[26]{};
+	arr2[0] = rp2[0];
+	int id2 = 1;
+	for (int i = 1; i < N; i++) {
+		bool find = false;
+		for (int j = 0; j < id2; j++) {
+			cout << "? B " << arr2[j] << " B " << rp2[i] << endl;
 			cin >> p;
 			if (p) {
-				B[i] = j;
+				find = true;
 				break;
 			}
 		}
-		if (!B[i]) {
-			num2[next2] = i;
-			B[i] = next2++;
-		}
+		if (!find)	arr2[id2++] = rp2[i];
+		if (id2 > 25)	break;
 	}
 
-	for (int i = 1; i < next; i++) {
-		for (int j = 1; j < next2; j++) {
-			cout << "? A " << num1[i] << " B " << num2[j] << endl;
-			Q--;
+	for (int i = 0; i < id1; i++) {
+		for (int j = 0; j < id2; j++) {
+			cout << "? A " << arr[i] << " B " << arr2[j] << endl;
 			cin >> p;
 			if (p) {
 				cout << "! 1" << endl;
@@ -60,6 +61,7 @@ int main() {
 			}
 		}
 	}
-	cout << "! 0" << endl;
+	cout << "! 0";
 	return 0;
+
 }
