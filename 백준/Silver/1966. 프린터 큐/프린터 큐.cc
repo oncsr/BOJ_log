@@ -4,44 +4,31 @@ using namespace std;
 using ii = pair<int, int>;
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
 	int T;
 	for (cin >> T; T--;) {
-		int N, M, a;
-		cin >> N >> M;
+		int n, m, a, s = 0;
+		cin >> n >> m;
 		queue<ii> Q;
-		for (int i = 0; i < N; i++) {
+		priority_queue<int, vector<int>, less<> > Q2;
+		for (int i = 0; i < n; i++) {
 			cin >> a;
-			Q.push({ i,a });
+			Q.push({ a,i });
+			Q2.push(a);
 		}
-		int g = 0;
 		while (!Q.empty()) {
-			int id = Q.front().first;
-			int important = Q.front().second;
-			Q.push(Q.front());
-			Q.pop();
-			int mx = 0;
-			while (id != Q.front().first) {
-				mx = max(mx, Q.front().second);
-				Q.push(Q.front());
+			if (Q.front().first != Q2.top()) {
+				ii temp = Q.front();
 				Q.pop();
+				Q.push(temp);
 			}
-
-			if (important >= mx) {
+			else {
+				s++;
+				int idx = Q.front().second;
 				Q.pop();
-				g++;
-				if (id == M)	break;
+				Q2.pop();
+				if (idx == m)	break;
 			}
-			while (mx > Q.front().second) {
-				Q.push(Q.front());
-				Q.pop();
-			}
-			id = Q.front().first;
-			Q.pop();
-			g++;
-			if (id == M)	break;
-			
 		}
-		cout << g << '\n';
+		cout << s << '\n';
 	}
 }
