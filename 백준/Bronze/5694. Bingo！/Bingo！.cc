@@ -2,6 +2,7 @@
 using namespace std;
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 	int N, B;
 	for (cin >> N >> B; N != 0 && B != 0; cin >> N >> B) {
 		int arr[91]{};
