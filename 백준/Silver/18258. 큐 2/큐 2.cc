@@ -1,36 +1,62 @@
+// 큐 배열로 구현
+
 #include <iostream>
-#include <queue>
 using namespace std;
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	int n, b;
-	string a;
-	queue<int> Q;
-	for (cin >> n; n--;) {
-		cin >> a;
-		if (a == "push") {
-			cin >> b;
-			Q.push(b);
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+
+	int queue[2000000];
+	int front = 0, back = 0;
+
+	int N;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		string op;
+		cin >> op;
+		if (op == "push") {
+			int X;
+			cin >> X;
+			queue[back] = X;
+			back++;
 		}
-		if (a == "pop") {
-			if (Q.empty())	cout << -1 << '\n';
+		else if (op == "pop") {
+			if (front == back) {
+				cout << -1 << '\n';
+			}
 			else {
-				cout << Q.front() << '\n';
-				Q.pop();
+				cout << queue[front] << '\n';
+				front++;
 			}
 		}
-		if (a == "size") {
-			cout << Q.size() << '\n';
+		else if (op == "size") {
+			cout << back - front << '\n';
 		}
-		if (a == "empty") {
-			cout << (int)Q.empty() << '\n';
+		else if (op == "empty") {
+			if (front == back) {
+				cout << 1 << '\n';
+			}
+			else {
+				cout << 0 << '\n';
+			}
 		}
-		if (a == "front") {
-			cout << (Q.empty() ? -1 : Q.front()) << '\n';
+		else if (op == "front") {
+			if (front == back) {
+				cout << -1 << '\n';
+			}
+			else {
+				cout << queue[front] << '\n';
+			}
 		}
-		if (a == "back") {
-			cout << (Q.empty() ? -1 : Q.back()) << '\n';
+		else if (op == "back") {
+			if (front == back) {
+				cout << -1 << '\n';
+			}
+			else {
+				cout << queue[back - 1] << '\n';
+			}
 		}
 	}
+
 }
