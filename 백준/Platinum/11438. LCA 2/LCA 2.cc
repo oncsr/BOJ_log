@@ -1,71 +1,64 @@
 #include <iostream>
+#include <cmath>
 #include <vector>
 using namespace std;
 
-vector<vector<int> > tree(100001);
-int sz[100001]{};	// sz[i] = 정점 i의 서브트리의 노드 개수
-int parent[100001]{};	// parent[i] = 정점 i의 부모 정점
-vector<vector<int> > chain(100001);
-int chain_num[100001]{};	// i번 노드가 속한 체인의 루트 번호
-int depth[100001]{};		// i번 노드가 속한 체인의 깊이
-int chain_index[100001]{};	// i번 노드가 속한 체인에서 몇 번째 노드인지
+vector<vector<int> > V(100001);
+int N, M;
 
+int dep[100001]{};
+int par[18][100001]{};
 
-int dfs(int node, int par) {
-	parent[node] = par;
-	sz[node] = 1;
-	for (int next : tree[node])
-		if (next != par)
-			sz[node] += dfs(next, node);
-	return sz[node];
-}
-
-// node = 현재 정점, par = 부모 정점
-// chain_start = 현재 체인의 루트
-// dep = 현재 체인의 깊이
-void HLD(int node, int par, int chain_start, int dep) {
-	depth[node] = dep;
-	chain_num[node] = chain_start;
-	chain_index[node] = chain[chain_start].size();
-	chain[chain_start].push_back(node);
-
-	int heavy = -1;
-	for (int next : tree[node]) {
-		if (next != par && (heavy == -1 || sz[next] > sz[heavy]))
-			heavy = next;
-	}
-	if (heavy != -1)
-		HLD(heavy, node, chain_start, dep);
-	
-	for (int next : tree[node]) {
-		if (next != par && next != heavy)
-			HLD(next, node, next, dep + 1);
+void dfs(int n, int p, int d) {
+	dep[n] = d;
+	for (int i : V[n]) {
+		if (i != p) {
+			par[0][i] = n;
+			dfs(i, n, d + 1);
+		}
 	}
 }
 
-int LCA(int u, int v) {
-	while (chain_num[u] != chain_num[v]) {
-		if (depth[u] > depth[v])
-			u = parent[chain_num[u]];
-		else
-			v = parent[chain_num[v]];
+int lca(int u, int v) {
+	int diff = abs(dep[u] - dep[v]);
+	// 깊이를 같게 만들기
+	if (diff) {
+		if (dep[u] < dep[v])	swap(u, v);
+		int i = 0;
+		while (diff) {
+			if (diff % 2)	u = par[i][u];
+			i++;
+			diff >>= 1;
+		}
 	}
-	return chain_index[u] > chain_index[v] ? v : u;
+	if (u == v)	return u;
+	// lca 찾기
+	for (int i = log2(dep[u]); i >= 0; i--) {
+		if (par[i][u] == par[i][v])	continue;
+		u = par[i][u], v = par[i][v];
+	}
+	return par[0][u];
 }
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	int N, M, a, b;
 	cin >> N;
-	for (int i = 0; i < N - 1; i++) {
+	for (int i = 1; i < N; i++) {
+		int a, b;
 		cin >> a >> b;
-		tree[a].push_back(b);
-		tree[b].push_back(a);
+		V[a].push_back(b);
+		V[b].push_back(a);
 	}
-	dfs(1, 0);
-	HLD(1, 0, 1, 0);
+	dfs(1, 0, 0);
+
+	for (int i = 1; i <= 17; i++)
+		for (int j = 1; j <= N; j++)
+			par[i][j] = par[i - 1][par[i - 1][j]];
+
 	for (cin >> M; M--;) {
+		int a, b;
 		cin >> a >> b;
-		cout << LCA(a, b) << '\n';
+		cout << lca(a, b) << '\n';
 	}
+
 }
