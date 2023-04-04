@@ -1,36 +1,28 @@
 #include <iostream>
 #include <stack>
 using namespace std;
+using ii = pair<int, int>;
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin.tie(0)->sync_with_stdio(0);
+	stack<ii> S;
 	int N;
 	cin >> N;
-	stack<pair<int, int> > S;
 	for (int i = 1; i <= N; i++) {
 		int a;
 		cin >> a;
 		if (S.empty()) {
 			S.push({ a,i });
-			cout << "0 ";
+			cout << 0 << ' ';
+			continue;
 		}
-		else if (a < S.top().first) {
-			cout << S.top().second << ' ';
+		if (a > S.top().first) {
+			while (!S.empty() && a > S.top().first)	S.pop();
+			cout << (S.empty() ? 0 : S.top().second) << ' ';
 			S.push({ a,i });
+			continue;
 		}
-		else {
-			while (!S.empty()) {
-				if (a < S.top().first)	break;
-				S.pop();
-			}
-			if (S.empty()) {
-				cout << "0 ";
-			}
-			else
-				cout << S.top().second << ' ';
-			S.push({ a,i });
-		}
+		cout << S.top().second << ' ';
+		S.push({ a,i });
 	}
-	cout << '\n';
 }
