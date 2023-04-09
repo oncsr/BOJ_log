@@ -1,33 +1,31 @@
 #include <iostream>
-#include <string>
 #include <stack>
+#include <string>
 using namespace std;
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	string a;
-	getline(cin, a);
-	while (a != ".") {
+	string c;	getline(cin, c);
+	while (c != ".") {
+		bool chk = true;
 		stack<char> S;
-		for (char i : a) {
-			if (i == '(')	S.push(i);
-			if (i == '[')	S.push(i);
-			if (i == ')') {
-				if (S.empty() || S.top() != '(') {
-					S.push('e');
-					break;
-				}
-				S.pop();
+		for (int i = 0; i < c.size(); i++) {
+			if (c[i] == '(' || c[i] == '[')
+				S.push(c[i]);
+			if ((c[i] == ')' || c[i] == ']') && S.empty()) {
+				chk = false;
+				break;
 			}
-			if (i == ']') {
-				if (S.empty() || S.top() != '[') {
-					S.push('e');
-					break;
-				}
+			else if ((c[i] == ')' && S.top() == '(') || (c[i] == ']' && S.top() == '['))
 				S.pop();
+			else if (c[i] == ')' || c[i] == ']') {
+				chk = false;
+				break;
 			}
 		}
-		cout << (S.empty() ? "yes\n" : "no\n");
-		getline(cin, a);
+		if (chk && S.empty())
+			cout << "yes" << '\n';
+		else
+			cout << "no" << '\n';
+		getline(cin, c);
 	}
 }
