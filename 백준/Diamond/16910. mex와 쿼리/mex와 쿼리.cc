@@ -7,12 +7,11 @@ using pl = pair<ll, ll>;
 using ii = pair<int, int>;
 
 vector<ll> value;
-ll idx[600004]{};
-ll rev[600004]{};
+int idx[600004]{};
+int rev[600004]{};
 
-ll seg[2097153]{};
-ll lazy[2097153]{};
-ii none = { 0,0 };
+int seg[2097153]{};
+int lazy[2097153]{};
 int N;
 
 struct query {
