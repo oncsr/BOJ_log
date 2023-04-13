@@ -1,2 +1,2 @@
 #include<iostream>
-main(){int c,d;std::cin>>c>>d;std::cout<<(c+d==3?"ChongChong":"GomGom");}
+int main(){int c,d;std::cin>>c>>d;puts(c*d-2?"GomGom":"ChongChong");}
