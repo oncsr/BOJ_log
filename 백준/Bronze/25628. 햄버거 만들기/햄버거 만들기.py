@@ -1,2 +1,1 @@
-a=input().split();
-print(min(int(a[0])//2,int(a[1])))
+a,b=map(int,input().split());print(min(a//2,b))
