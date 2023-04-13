@@ -1,7 +1,2 @@
-#include <iostream>
-using namespace std;
-
-int main() {
-	int a, b; cin >> a >> b;
-	cout << min(a / 2, b);
-}
+#include<iostream>
+main(){int a,b;std::cin>>a>>b;std::cout<<std::min(a/2,b);}
