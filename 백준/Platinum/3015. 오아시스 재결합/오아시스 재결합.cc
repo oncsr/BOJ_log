@@ -5,36 +5,48 @@ using ll = long long;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	int N, a;
-	ll ans = 0;
-	cin >> N;
-	stack<int> S;
-	for (int i = 0; i < N; i++) {
+	ll N, a;
+	ll s = 0;
+	stack<ll> S;
+	for (cin >> N; N--;) {
 		cin >> a;
-		int same = 0, temp = -1;
-		while (!S.empty() && a > S.top()) {
-			if (temp == S.top())	same++;
-			else	same = 0;
-			temp = S.top();
-			S.pop();
-			if (S.empty())	ans += (1LL + same);
-			else	ans += (2LL + same);
+		if (!S.empty()) {
+			if (a > S.top()) {
+				while (!S.empty() && a > S.top()) {
+					ll temp = S.top(), g = 1;
+					S.pop();
+					if (!S.empty()) {
+						if (temp < S.top())	s += 2;
+						else {
+							while (!S.empty() && temp == S.top()) {
+								S.pop();
+								g++;
+							}
+							s += g * (g + 1) / 2;
+							if (!S.empty())	s += g;
+						}
+					}
+					else	s++;
+				}
+			}
 		}
-		if (same && S.empty())	ans -= (ll)same;
 		S.push(a);
 	}
-	int same = 0, temp = -1;
-	while (S.size() > 1) {
-		if (temp == S.top())	same++;
-		else {
-			if (same)	ans += (ll)same * ((ll)same + 1) / 2;
-			same = 0;
-		}
-		temp = S.top();
+	while (!S.empty()) {
+		ll a = S.top();
 		S.pop();
-		ans++;
+		if (!S.empty()) {
+			if (a < S.top())	s++;
+			else {
+				ll g = 0;
+				while (!S.empty() && S.top() == a) {
+					S.pop();
+					g++;
+				}
+				s += g * (g + 1) / 2;
+				if (!S.empty())	s += (g + 1);
+			}
+		}
 	}
-	ans += (ll)same * ((ll)same + 1) / 2;
-
-	cout << ans;
+	cout << s;
 }
