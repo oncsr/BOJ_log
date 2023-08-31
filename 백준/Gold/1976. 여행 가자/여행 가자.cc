@@ -1,38 +1,35 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-int parent[201]{};
+int N, M, root[201]{};
 
-int find(int n) {
-	if (parent[n] == n)	return n;
-	return parent[n] = find(parent[n]);
+int find(int x) {
+	if (x == root[x])	return x;
+	return root[x] = find(root[x]);
 }
+
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	int N, M, a;
 	cin >> N >> M;
-	int visit[201]{};
-	for (int i = 1; i <= N; i++)	parent[i] = i;
+	for (int i = 1; i <= N; i++)	root[i] = i;
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= N; j++) {
+			int a;
 			cin >> a;
-			if (a) {
-				if (parent[i] != parent[j]) {
-					if (i > j)	continue;
-					if(find(i) != find(j))	parent[find(i)] = j;
-				}
-			}
+			if (a)	root[find(i)] = find(j);
 		}
 	}
-	bool s = true;
-	int root = 0;
-	while (M--) {
-		cin >> a;
-		if (!visit[a]) {
-			if (!root)	root = a;
-			if (find(a) != find(root))	s = false;
+	int a;
+	cin >> a;
+	for (int i = 1; i < M; i++) {
+		int t;
+		cin >> t;
+		if (find(a) != find(t)) {
+			cout << "NO";
+			return 0;
 		}
+		a = t;
 	}
-	cout << (s ? "YES" : "NO");
+	cout << "YES";
 }
