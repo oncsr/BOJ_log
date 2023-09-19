@@ -39,7 +39,6 @@ int main() {
 	pair<ll, ll> ans;
 	ans.x = EY.x * SY.y - SY.x * EY.y;
 	ans.y = (E - S) * EY.y * SY.y;
-	if (ans.y < 0)	ans.x *= -1, ans.y *= -1;
 
 	if (ans.x == 0) {
 		cout << 0;
