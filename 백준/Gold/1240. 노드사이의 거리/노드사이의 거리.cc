@@ -2,31 +2,38 @@
 #include <vector>
 using namespace std;
 
-vector<vector<pair<int, int> > > V(100001);
-int cnt = 0;
-void dfs(int n, int P, int r, int d) {
-	if (n == d) {
-		cnt = r;
+int N, M;
+vector<vector<pair<int, int> > > Tree(1001);
+
+void dfs(int now, int parent, int distance, int dest) {
+	if (now == dest) {
+		cout << distance << '\n';
 		return;
 	}
-	for (pair<int, int> next : V[n])
-		if (next.first != P)
-			dfs(next.first, n, r + next.second, d);
+	for (auto next : Tree[now]) {
+		int child = next.first;
+		int cost = next.second;
+		if (child != parent) {
+			dfs(child, now, distance + cost, dest);
+		}
+	}
 }
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	int N, Q, a, b, c;
-	cin >> N >> Q;
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+
+	cin >> N >> M;
 	for (int i = 1; i < N; i++) {
+		int a, b, c;
 		cin >> a >> b >> c;
-		V[a].push_back({ b,c });
-		V[b].push_back({ a,c });
+		Tree[a].push_back({ b,c });
+		Tree[b].push_back({ a,c });
 	}
-	for (; Q--;) {
+	
+	for (int i = 0; i < M; i++) {
+		int a, b;
 		cin >> a >> b;
 		dfs(a, 0, 0, b);
-		cout << cnt << '\n';
-		cnt = 0;
 	}
 }
