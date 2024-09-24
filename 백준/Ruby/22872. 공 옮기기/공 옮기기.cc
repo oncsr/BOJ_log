@@ -1,108 +1,163 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ii = pair<int, int>;
+#define push(b,c)	ans.push_back({b,c})
 
+int n;
 vector<ii> ans;
 
-void one_two(int a, int b);
-void one_three(int a, int b);
-void two_one(int a, int b);
-void two_three(int a, int b);
-void three_one(int a, int b);
-void three_two(int a, int b);
+void solve(int len, int s, int e, int f) {
+	if (len <= 0)	return;
+	int o = 6 - s - e;
+	// 처음 1에서 시작하는 공들
+	if (!f) {
+		if (len == 1) {
+			push(s, e);
+			return;
+		}
+		if (len == 2) {
+			push(s, e);
+			push(s, e);
+			return;
+		}
+		solve(len - 2, s, o, 0);
+		push(s, e);
+		push(s, e);
+		solve(len - 2, o, e, 1);
+		return;
+	}
 
-void one_two(int a, int b) {
-	if (a == b) {
-		ans.push_back({ 1,2 });
+	// 짝 -> 짝
+	// 이건 반만 구해서 뒤집은거 더하면 됨
+	int id = ans.size();
+	if (len == 1) {
+		push(s, e);
 		return;
 	}
-	if (a == b - 1) {
-		ans.push_back({ 1,2 });
-		ans.push_back({ 1,2 });
-		return;
+	if (len == 2) {
+		push(s, o);
+		push(s, e);
 	}
-	one_three(a + 1, b - 1);
-	ans.push_back({ 1,2 });
-	ans.push_back({ 1,2 });
-	three_two(a + 1, b - 1);
+	else if (len == 3) {
+		push(s, e);
+		push(s, o);
+		push(e, o);
+		push(s, e);
+	}
+	else if (len == 4) {
+		push(s, o);
+		push(s, e);
+		push(s, e);
+		push(s, o);
+		push(e, s);
+		push(e, o);
+		push(s, e);
+	}
+	else if (len == 5) {
+		push(s, e);
+		push(s, o);
+		push(e, o);
+		push(s, e);
+		push(s, e);
+		push(o, e);
+		push(s, o);
+		push(e, o);
+		push(e, s);
+		push(e, o);
+		push(s, e);
+	}
+	else {
+		for (int i = len - 3; i > 0;) {
+			solve(i, s, o, 1);
+			push(s, e);
+			push(s, e);
+			i--;
+			// s에 하나 남은 경우
+			if (!i) {
+				push(s, o);
+				push(e, s);
+				push(e, o);
+				push(s, e);
+				break;
+			}
+			solve(i, o, e, 1);
+			push(s, o);
+			i--;
+			// 3이 넘어온 경우
+			if (!i) {
+				push(e, o);
+				push(e, s);
+				push(e, o);
+				push(s, e);
+				break;
+			}
+			solve(i, e, o, 1);
+			push(e, s);
+			push(e, s);
+			i--;
+			// 반대1
+			if (!i) {
+				push(e, o);
+				push(s, e);
+				push(s, o);
+				push(e, s);
+				break;
+			}
+			solve(i, o, s, 1);
+			push(e, o);
+			i--;
+			//"2
+			if (!i) {
+				push(s, o);
+				push(s, e);
+				push(s, o);
+				push(e, s);
+				break;
+			}
+		}
+	}
+
+
+
+	int now = ans.size() - 2;
+	for (int i = now; i >= id; i--) {
+		int fir = ans[i].second;
+		if (fir == s)	fir = e;
+		else if (fir == e)	fir = s;
+		int sec = ans[i].first;
+		if (sec == s)	sec = e;
+		else if (sec == e)	sec = s;
+		push(fir, sec);
+	}
 }
 
-void one_three(int a, int b) {
-	if (a == b) {
-		ans.push_back({ 1,3 });
-		return;
+void print(bool r) {
+	if (!r) {
+		for (ii now : ans)
+			cout << now.first << ' ' << now.second << '\n';
 	}
-	if (a == b - 1) {
-		ans.push_back({ 1,3 });
-		ans.push_back({ 1,3 });
-		return;
+	else {
+		for (int i = ans.size() - 1; i >= 0; i--) {
+			int fir = ans[i].second;
+			if (fir == 1)	fir = 3;
+			else if (fir == 3)	fir = 1;
+			int sec = ans[i].first;
+			if (sec == 1)	sec = 3;
+			else if (sec == 3)	sec = 1;
+			cout << fir << ' ' << sec << '\n';
+		}
 	}
-	one_two(a + 1, b - 1);
-	ans.push_back({ 1,3 });
-	ans.push_back({ 1,3 });
-	two_three(a + 1, b - 1);
-}
-
-void two_one(int a, int b) {
-	if (a == b) {
-		ans.push_back({ 2,1 });
-		return;
-	}
-	two_three(a + 1, b);
-	ans.push_back({ 2,1 });
-	three_one(a + 1, b);
-}
-
-void two_three(int a, int b) {
-	if (a == b) {
-		ans.push_back({ 2,3 });
-		return;
-	}
-	two_one(a, b - 1);
-	ans.push_back({ 2,3 });
-	one_three(a, b - 1);
-}
-
-void three_one(int a, int b) {
-	if (a == b) {
-		ans.push_back({ 3,1 });
-		return;
-	}
-	three_two(a, b - 1);
-	ans.push_back({ 3,1 });
-	two_one(a, b - 1);
-}
-
-void three_two(int a, int b) {
-	if (a == b) {
-		ans.push_back({ 3,2 });
-		return;
-	}
-	three_one(a + 1, b);
-	ans.push_back({ 3,2 });
-	one_two(a + 1, b);
 }
 
 int main() {
-	int n;
 	cin >> n;
-	if (n == 1) {
-		cout << "1\n1 3";
-		return 0;
-	}
-	one_two(2, n);
-	cout << ans.size() * 2 + 1 << '\n';
-	for (ii now : ans)
-		cout << now.first << ' ' << now.second << '\n';
-	cout << 1 << ' ' << 3 << '\n';
-	for (int i = ans.size() - 1; i >= 0; i--) {
-		int fir = ans[i].first;
-		int sec = ans[i].second;
-		if (sec == 1)	cout << 3 << ' ';
-		else if (sec == 3)	cout << 1 << ' ';
-		else	cout << sec << ' ';
-		if (fir == 1)	cout << 3 << '\n';
-		else if (fir == 3)	cout << 1 << '\n';
-		else	cout << fir << '\n';
-	}
+	
+	solve(n - 1, 1, 2, 0);
+	int s = ans.size() * 2 + 1;
+
+	cout << s << '\n';
+	print(0);
+	cout << "1 3\n";
+	print(1);
+
 }
