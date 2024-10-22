@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ld = long double;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
@@ -15,24 +14,24 @@ int main() {
 		return r[x] = F(r[x]);
 	};
 
-	vector<tuple<ld, int, int>> E;
-	ld p;
+	vector<tuple<double, int, int>> E;
+	double p;
 	for (int a, b; M--; E.emplace_back(p, a, b))	cin >> a >> b >> p;
-	sort(E.begin(), E.end(), greater<>());
+	sort(E.begin(), E.end());
 
 	int Q;
 	cin >> Q;
-	vector<pair<ld, int>> q;
+	vector<pair<double, int>> q;
 	vector<int> ans(Q);
 	for (int i = 0; Q--; q.emplace_back(p, i++))	cin >> p;
 	sort(q.begin(), q.end(), greater<>());
 
-	int id = 0, s = N;
+	int id = E.size() - 1, s = N;
 	for (auto& [g, i] : q) {
-		while (id < E.size()) {
+		while (id >= 0) {
 			auto& [h, a, b] = E[id];
 			if (h >= g) {
-				id++;
+				id--;
 				int x = F(a), y = F(b);
 				if (x == y)	continue;
 				s--;
