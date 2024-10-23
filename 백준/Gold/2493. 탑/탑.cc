@@ -1,28 +1,27 @@
 #include <iostream>
 #include <stack>
 using namespace std;
-using ii = pair<int, int>;
+
+int N;
+stack<pair<int, int>> s;
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	stack<ii> S;
-	int N;
-	cin >> N;
-	for (int i = 1; i <= N; i++) {
-		int a;
-		cin >> a;
-		if (S.empty()) {
-			S.push({ a,i });
-			cout << 0 << ' ';
-			continue;
-		}
-		if (a > S.top().first) {
-			while (!S.empty() && a > S.top().first)	S.pop();
-			cout << (S.empty() ? 0 : S.top().second) << ' ';
-			S.push({ a,i });
-			continue;
-		}
-		cout << S.top().second << ' ';
-		S.push({ a,i });
-	}
+    cin.tie(0)->sync_with_stdio(0);
+    cin >> N;
+    for (int i = 1; i <= N; i++) {
+        int t; cin >> t;
+        while (!s.empty() && s.top().first < t) {
+            s.pop();
+        }
+        if (s.empty()) {
+            cout << 0 << ' ';
+        }
+        else {
+            cout << s.top().second << ' ';
+        }
+
+        s.push({ t, i });
+    }
+
+    return 0;
 }
