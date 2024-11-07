@@ -19,7 +19,7 @@ void hld(int n, int p, int s, int d, int t) {
 	S[n] = t;
 	if (!C[s].empty())	S[n] += S[C[s].back()];
 	C[s].push_back(n);
-	
+
 	int h = -1, g = -1;
 	for (auto [i, c] : V[n])	if (i != p && (h == -1 || sz[i] > sz[h]))	h = i, g = c;
 	if (h != -1)	hld(h, n, s, d, g);
@@ -37,6 +37,7 @@ int sol(int a, int b) {
 }
 
 int main() {
+	cin.tie(0)->sync_with_stdio(0);
 
 	int N, M;
 	cin >> N;
