@@ -1,52 +1,40 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
-vector<vector<int> > g(51);
-int visit[51] = { 0 };
-int cnt = 0;
+vector<vector<int> > Tree(51);
+vector<int> Parent(51);
+int N, root, rmv, leaf = 0;
 
-int dfs(int n) {
-	if (visit[n] || g[n].empty())
-		return 1;
-	else {
-		visit[n]++;
-		bool find = false;
-		for (int i = 0; i < g[n].size(); i++) {
-			if (visit[g[n][i]])
-				continue;
-			else {
-				find = true;
-				dfs(g[n][i]);
-			}
+// 단말 노드의 개수를 구한다.
+void dfs(int now, int parent) {
+	if (now == rmv)	return;
+	int isChild = 0;
+	for (int child : Tree[now]) {
+		if (child != parent && child != rmv) {
+			dfs(child, now);
+			isChild++;
 		}
-		if (!find)
-			cnt++;
-		return cnt;
 	}
+	if (isChild == 0)	leaf++;
 }
 
 int main() {
-	
-	int n;
-	cin >> n;
-	int root;
-	for (int i = 0; i < n; i++) {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cin >> N;
+	for (int i = 0; i < N; i++) {
 		int a;
 		cin >> a;
-		if (a == -1) {
-			root = i;
-			continue;
+		Parent[i] = a;
+		if (a == -1)	root = i;
+		else {
+			Tree[a].push_back(i);
+			Tree[i].push_back(a);
 		}
-		g[i].push_back(a);
-		g[a].push_back(i);
 	}
-	int f;
-	cin >> f;
-	visit[f]++;
-	if (f == root)
-		cout << "0\n";
-	else
-		cout << dfs(root) << '\n';
+	cin >> rmv;
+
+	dfs(root, -1);
+	cout << leaf;
 }
