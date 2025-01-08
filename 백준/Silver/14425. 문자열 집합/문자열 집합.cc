@@ -1,19 +1,32 @@
 #include <iostream>
-#include <map>
+#include <set>
 using namespace std;
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	map<string, bool> M;
-	string a;
-	int n, m, s = 0;
-	for (cin >> n >> m; n--;) {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+
+	set<string> S;
+
+	int N, M;
+	cin >> N >> M;
+	for (int i = 0; i < N; i++)
+	{
+		string a;
 		cin >> a;
-		M[a] = true;
+		S.insert(a);
 	}
-	for (; m--;) {
+	
+	int answer = 0;
+	for (int i = 0; i < M; i++)
+	{
+		string a;
 		cin >> a;
-		s += (M[a] ? 1 : 0);
+		if (S.count(a) == 1)
+		{
+			answer++;
+		}
 	}
-	cout << s;
+
+	cout << answer;
 }
