@@ -1,34 +1,31 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
-int visit[8]{};
 int N, M;
 int arr[8]{};
 
-void R(int n, vector<int> ans) {
-	for (int i = 0; i < N; i++) {
-		if (!visit[i]) {
-			if (ans.empty() || ans.back() < arr[i]) {
-				visit[i]++;
-				ans.push_back(arr[i]);
-				if (n < M)	R(n + 1, ans);
-				else {
-					for (int i : ans)	cout << i << ' ';
-					cout << '\n';
-				}
-				visit[i]--;
-				ans.pop_back();
-			}
-		}
+void solve(int now, int select, vector<int> ans) {
+	if (select == M) {
+		for (int i : ans)	cout << i << ' ';
+		cout << '\n';
+		return;
 	}
+	if (now == N)	return;
+
+	for (int i = now; i < N; i++) {
+		ans.push_back(arr[i]);
+		solve(i + 1, select + 1, ans);
+		ans.pop_back();
+	}
+
 }
 
 int main() {
+
 	cin >> N >> M;
-	vector<int> a;
 	for (int i = 0; i < N; i++)	cin >> arr[i];
 	sort(arr, arr + N);
-	R(1, a);
+
+	solve(0, 0, {});
+
 }
