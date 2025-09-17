@@ -111,7 +111,7 @@ public class Main {
         });
 
         long[] ans = new long[Q];
-        seg = new long[value*4+value];
+        seg = new long[524288];
         int s = 0, e = -1;
         for(int i=0;i<Q;i++) {
             int ns = queries[i][0];
@@ -121,23 +121,23 @@ public class Main {
             while(s < ns) {
                 int val = a[s];
                 int org = origin[val];
-                update(0,value,val,-org,1);
+                update(0,100001,val,-org,1);
                 s++;
             }
             while(ns < s) {
                 int val = a[--s];
                 int org = origin[val];
-                update(0,value,val,org,1);
+                update(0,100001,val,org,1);
             }
             while(e < ne) {
                 int val = a[++e];
                 int org = origin[val];
-                update(0,value,val,org,1);
+                update(0,100001,val,org,1);
             }
             while(ne < e) {
                 int val = a[e];
                 int org = origin[val];
-                update(0,value,val,-org,1);
+                update(0,100001,val,-org,1);
                 e--;
             }
 
