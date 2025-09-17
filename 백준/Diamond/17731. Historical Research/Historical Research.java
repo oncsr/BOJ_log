@@ -53,7 +53,7 @@ public class Main {
 
     //
 
-    static int N, Q, bucketSize, bucketCount;
+    static int N, Q, bucketSize;
     static int[] a, origin;
     static int[][] queries;
     static long[] seg;
@@ -69,13 +69,6 @@ public class Main {
         seg[n] = Math.max(seg[n*2], seg[n*2+1]);
     }
 
-    public static long find(int s, int e, int l, int r, int n) {
-        if(l>r || l>e || r<s) return 0;
-        if(l<=s && e<=r) return seg[n];
-        int m = (s+e)>>1;
-        return Math.max(find(s,m,l,r,n*2), find(m+1,e,l,r,n*2+1));
-    }
-
     public static void main(String[] args) throws Exception {
 
         io = new IOController();
@@ -83,7 +76,6 @@ public class Main {
         N = io.nextInt();
         Q = io.nextInt();
         bucketSize = (int)Math.sqrt(N);
-        bucketCount = (N-1)/bucketSize+1;
         a = new int[N];
         int[][] tmp = new int[N][];
         origin = new int[N];
@@ -113,41 +105,40 @@ public class Main {
 
         Arrays.sort(queries, (c,d) -> {
             if(c[0] / bucketSize == d[0] / bucketSize) {
-                if(c[0] % 2 == 0) return c[1]-d[1];
-                return d[1]-c[1];
+                return c[1]-d[1];
             }
             return c[0] / bucketSize - d[0] / bucketSize;
         });
 
         long[] ans = new long[Q];
-        seg = new long[N*4];
+        seg = new long[value*4+value];
         int s = 0, e = -1;
         for(int i=0;i<Q;i++) {
             int ns = queries[i][0];
             int ne = queries[i][1];
             int idx = queries[i][2];
 
-            while(e < ne) {
-                int val = a[++e];
-                int org = origin[val];
-                update(0,N-1,val,org,1);
-            }
-            while(ne < e) {
-                int val = a[e];
-                int org = origin[val];
-                update(0,N-1,val,-org,1);
-                e--;
-            }
             while(s < ns) {
                 int val = a[s];
                 int org = origin[val];
-                update(0,N-1,val,-org,1);
+                update(0,value,val,-org,1);
                 s++;
             }
             while(ns < s) {
                 int val = a[--s];
                 int org = origin[val];
-                update(0,N-1,val,org,1);
+                update(0,value,val,org,1);
+            }
+            while(e < ne) {
+                int val = a[++e];
+                int org = origin[val];
+                update(0,value,val,org,1);
+            }
+            while(ne < e) {
+                int val = a[e];
+                int org = origin[val];
+                update(0,value,val,-org,1);
+                e--;
             }
 
             ans[idx] = seg[1];
