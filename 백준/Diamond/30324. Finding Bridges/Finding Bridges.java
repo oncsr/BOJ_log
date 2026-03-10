@@ -139,8 +139,7 @@ public class Main {
         }
 
         while(!answer.isEmpty()) {
-            int s = answer.pop();
-            bw.write(s + "\n");
+            bw.write(answer.pop() + "\n");
         }
         bw.close();
 
