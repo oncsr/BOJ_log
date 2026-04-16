@@ -1,0 +1,15 @@
+def bck(cur, tar, expr, op):
+    if cur == tar and op == True:
+        if eval(expr.replace(' ', '')) == 0:
+            print(expr)
+        return
+    if op == True:
+        bck(cur+1, tar, expr+" ", False)
+        bck(cur+1, tar, expr+"+", False)
+        bck(cur+1, tar, expr+"-", False)
+    else:
+        bck(cur, tar, expr+str(cur), True)
+        
+for _ in range(int(input())):
+    bck(1, int(input()), "", False)
+    print()
