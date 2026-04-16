@@ -1,0 +1,4 @@
+3 5
+Z Z O O A
+A C C Z O
+A C Z O A
