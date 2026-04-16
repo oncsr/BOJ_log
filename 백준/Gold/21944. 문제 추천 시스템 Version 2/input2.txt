@@ -1,0 +1,11 @@
+3
+19998 78 2
+2667 37 3
+2042 55 3
+6
+recommend3 -1 50
+solved 2667
+recommend3 -1 50
+recommend3 1 70
+solved 19998
+recommend3 1 70
