@@ -1,0 +1,6 @@
+abcdefghijklmnopqrstuvwxyz
+4
+abcdefg
+bcdefghijkl
+cdefghij
+mnopqrstuvwxyz
