@@ -1,0 +1,2 @@
+8
+A B C B A B C B
