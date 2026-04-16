@@ -1,0 +1,19 @@
+5
+1000 1 1
+1001 2 1
+19998 78 2
+2667 37 3
+2042 55 3
+12
+add 1402 59 1
+recommend 1 1
+recommend2 1
+recommend3 1 50
+recommend3 -1 50
+solved 1000
+solved 2667
+recommend 2 1
+recommend 1 -1
+recommend2 -1
+solved 1001
+recommend 1 -1
