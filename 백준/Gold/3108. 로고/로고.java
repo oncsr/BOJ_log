@@ -1,91 +1,97 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+class Rect{
+	int x, y, w, h;
+	Rect(int x, int y, int w, int h){
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+	}
+}
 
-    // IO field
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    static StringTokenizer st = new StringTokenizer("");
+class Main {
+	
+	// IO field
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+	static StringTokenizer st;
 
-    static void nextLine() throws Exception {st = new StringTokenizer(br.readLine());}
-    static String nextToken() throws Exception {
-        while(!st.hasMoreTokens()) nextLine();
-        return st.nextToken();
-    }
-    static int nextInt() throws Exception { return Integer.parseInt(nextToken()); }
-    static long nextLong() throws Exception { return Long.parseLong(nextToken()); }
-    static double nextDouble() throws Exception { return Double.parseDouble(nextToken()); }
-    static void bwEnd() throws Exception {bw.flush();bw.close();}
+	static void nextLine() throws Exception {st = new StringTokenizer(br.readLine());}
+	static int nextInt() {return Integer.parseInt(st.nextToken());}
+	static long nextLong() {return Long.parseLong(st.nextToken());}
+	static void bwEnd() throws Exception {bw.flush();bw.close();}
+	
+	// Additional field
+	
+	
+	static Rect[] arr;
+	static int N;
+	static int[] r;
+	
+	public static void main(String[] args) throws Exception {
+		
+		ready();
+		solve();
+		
+		bwEnd();
+	}
+	
+	static void ready() throws Exception{
 
-    // Additional field
+		N = Integer.parseInt(br.readLine());
+		r = new int[N+1];
+		for(int i=0;i<=N;i++) r[i] = i;
+		arr = new Rect[N+1];
+		arr[0] = new Rect(0,0,0,0);
+		for(int i=1;i<=N;i++) {
+			nextLine();
+			int x1 = nextInt();
+			int y1 = nextInt();
+			int x2 = nextInt();
+			int y2 = nextInt();
+			arr[i] = new Rect(x1, y1, x2-x1, y2-y1);
+		}
+		
+	}
+	
+	static void solve() throws Exception{
 
-    static int N;
-    static int[] r;
+		for(int i=1;i<=N;i++) {
+			for(int j=0;j<i;j++) {
+				if(!intersect(arr[i],arr[j])) continue;
+				int x = f(i), y = f(j);
+				if(x == y) continue;
+				r[x] = y;
+			}
+		}
+		
+		int ans = 0;
+		boolean vis[] = new boolean[N+1];
+		vis[f(0)] = true;
+		for(int i=1;i<=N;i++) {
+			int x = f(i);
+			if(!vis[x]) {
+				vis[x] = true;
+				ans++;
+			}
+		}
+		
+		bw.write(ans+"\n");
+		
+	}
+	
+	static boolean intersect(Rect a, Rect b) {
+		if(a.x + a.w < b.x) return false;
+		if(b.x + b.w < a.x) return false; 
+		if(a.y + a.h < b.y) return false;
+		if(b.y + b.h < a.y) return false;
+		if((a.x < b.x && b.x + b.w < a.x + a.w) && (a.y < b.y && b.y + b.h < a.y + a.h)) return false;
+		if((b.x < a.x && a.x + a.w < b.x + b.w) && (b.y < a.y && a.y + a.h < b.y + b.h)) return false;
+		return true;
+	}
 
-    static int f(int x) {return x==r[x] ? x : (r[x]=f(r[x]));}
-    static int comp(int x, int y) {return x*1001 + y;}
-
-    public static void main(String[] args) throws Exception {
-
-        ready();
-        solve();
-
-        bwEnd();
-
-    }
-
-    static void ready() throws Exception{
-
-        N = nextInt();
-        r = new int[1001*1001];
-        for(int i=0;i<1001*1001;i++) r[i] = i;
-
-    }
-
-    static void solve() throws Exception {
-
-        List<Integer> L = new ArrayList<>();
-        L.add(comp(500,500));
-        for(int i=0;i<N;i++){
-            int x1 = nextInt() + 500;
-            int y1 = nextInt() + 500;
-            int x2 = nextInt() + 500;
-            int y2 = nextInt() + 500;
-            for(int j=x1;j<x2;j++) {
-                {
-                    int a = comp(j,y1), b = comp(j+1,y1);
-                    int fa = f(a), fb = f(b);
-                    if(fa != fb) r[fa] = fb;
-                }
-                {
-                    int a = comp(j,y2), b = comp(j+1,y2);
-                    int fa = f(a), fb = f(b);
-                    if(fa != fb) r[fa] = fb;
-                }
-                L.add(comp(j,y1));
-                L.add(comp(j+1,y2));
-            }
-            for(int j=y1;j<y2;j++) {
-                {
-                    int a = comp(x1,j), b = comp(x1,j+1);
-                    int fa = f(a), fb = f(b);
-                    if(fa != fb) r[fa] = fb;
-                }
-                {
-                    int a = comp(x2,j), b = comp(x2,j+1);
-                    int fa = f(a), fb = f(b);
-                    if(fa != fb) r[fa] = fb;
-                }
-                L.add(comp(x1,j+1));
-                L.add(comp(x2,j));
-            }
-        }
-
-        Set<Integer> S = new TreeSet<>();
-        for(int i:L) S.add(f(i));
-        bw.write((S.size()-1) + "\n");
-
-    }
-
+	static int f(int x) {return x==r[x] ? x : (r[x]=f(r[x]));}
+	
 }
