@@ -1,0 +1,2 @@
+Minimalni budova obsahuje 7 kostek, maximalni 17 kostek.
+Minimalni budova obsahuje 1 kostek, maximalni 1 kostek.
