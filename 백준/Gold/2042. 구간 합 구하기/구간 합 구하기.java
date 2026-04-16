@@ -1,117 +1,73 @@
 import java.util.*;
 import java.io.*;
 
-class IOController {
-    BufferedReader br;
-    BufferedWriter bw;
-    StringTokenizer st;
+class Main {
+	
+	// IO field
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+	static StringTokenizer st = new StringTokenizer("");
 
-    public IOController() {
-        br = new BufferedReader(new InputStreamReader(System.in));
-        bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        st = new StringTokenizer("");
-    }
+	static void nextLine() throws Exception {st = new StringTokenizer(br.readLine());}
+	static String nextToken() throws Exception {
+		while(!st.hasMoreTokens()) nextLine();
+		return st.nextToken();
+	}
+	static int nextInt() throws Exception { return Integer.parseInt(nextToken()); }
+	static long nextLong() throws Exception { return Long.parseLong(nextToken()); }
+	static double nextDouble() throws Exception { return Double.parseDouble(nextToken()); }
+	static void bwEnd() throws Exception {bw.flush();bw.close();}
+	
+	// Additional field
+	
+	static int N, M, K;
+	static long[] seg;
+	
+	public static void main(String[] args) throws Exception {
+		
+		ready();
+		solve();
+	
+		bwEnd();
+		
+	}
+	
+	static void ready() throws Exception{
+		
+		N = nextInt();
+		M = nextInt();
+		K = nextInt();
+		seg = new long[N*4];
+		for(int i=1;i<=N;i++) upt(1,N,i,nextLong(),1);
 
-    String nextLine() throws Exception {
-        String line = br.readLine();
-        st = new StringTokenizer(line);
-        return line;
-    }
-
-    String nextToken() throws Exception {
-        while (!st.hasMoreTokens()) nextLine();
-        return st.nextToken();
-    }
-
-    int nextInt() throws Exception {
-        return Integer.parseInt(nextToken());
-    }
-
-    long nextLong() throws Exception {
-        return Long.parseLong(nextToken());
-    }
-
-    double nextDouble() throws Exception {
-        return Double.parseDouble(nextToken());
-    }
-
-    void close() throws Exception {
-        bw.flush();
-        bw.close();
-    }
-
-    void write(String content) throws Exception {
-        bw.write(content);
-    }
-
-}
-
-public class Main {
-
-    static IOController io;
-
-    //
-
-    static int N, M;
-    static int bucketSize, size;
-    static long[] a, b;
-
-    public static void main(String[] args) throws Exception {
-
-        io = new IOController();
-
-        init();
-        solve();
-
-        io.close();
-
-    }
-
-    static void init() throws Exception {
-
-        N = io.nextInt();
-        M = io.nextInt() + io.nextInt();
-        a = new long[N];
-        for(int i=0;i<N;i++) a[i] = io.nextLong();
-        bucketSize = (int)Math.sqrt(N);
-        size = (N-1)/bucketSize + 1;
-        b = new long[size];
-
-    }
-
-    static void solve() throws Exception {
-
-        for(int i=0;i<N;i++) {
-            int bucketNum = i/bucketSize;
-            b[bucketNum] += a[i];
-        }
-
-        while(M-->0) {
-            int op = io.nextInt();
-            if(op == 1) {
-                int i = io.nextInt()-1;
-                long c = io.nextLong();
-                int bucketNum = i/bucketSize;
-                b[bucketNum] -= a[i];
-                a[i] = c;
-                b[bucketNum] += a[i];
-            }
-            else {
-                int l = io.nextInt()-1;
-                int r = io.nextInt()-1;
-                int lNum = l/bucketSize;
-                int rNum = r/bucketSize;
-                
-                long res = 0;
-                
-                for(int i=l;i<Math.min(r+1, (lNum+1)*bucketSize);i++) res += a[i];
-                for(int i=lNum+1;i<rNum;i++) res += b[i];
-                if(lNum < rNum) for(int i=rNum*bucketSize;i<=r;i++) res += a[i];
-                
-                io.write(res + "\n");
-            }
-        }
-
-    }
-
+	}
+	
+	static void solve() throws Exception{
+		
+		for(int i=0;i<M+K;i++) {
+			long o = nextInt(), a = nextInt(), b = nextLong();
+			if(o == 1) upt(1,N,(int)a,b,1);
+			else bw.write(find(1,N,(int)a,(int)b,1) + "\n");
+		}
+		
+	}
+	
+	static void upt(int s, int e, int i, long v, int n) {
+		if(s == e) {
+			seg[n] = v;
+			return;
+		}
+		int m=(s+e)>>1;
+		if(i<=m) upt(s,m,i,v,n*2);
+		else upt(m+1,e,i,v,n*2+1);
+		seg[n] = seg[n*2] + seg[n*2+1];
+	}
+	
+	static long find(int s, int e, int l, int r, int n) {
+		if(l>r || l>e || r<s) return 0;
+		if(l<=s && e<=r) return seg[n];
+		int m=(s+e)>>1;
+		return find(s,m,l,r,n*2) + find(m+1,e,l,r,n*2+1);
+	}
+	
 }
