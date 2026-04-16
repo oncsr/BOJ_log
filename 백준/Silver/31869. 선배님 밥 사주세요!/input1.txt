@@ -1,0 +1,7 @@
+3
+OhIkjun 1 6 10000
+Hyukjun 1 5 5000
+Junseong 2 0 8000
+Hyukjun 4000
+OhIkjun 12000
+Junseong 20000
