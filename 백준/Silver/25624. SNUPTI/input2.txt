@@ -1,0 +1,7 @@
+2 6
+AA
+AO
+BB
+BO
+OO
+AB
