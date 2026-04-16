@@ -1,0 +1,8 @@
+FOOBAR
+Fo6Bar
+Foo1Bar
+Foo3Bar
+Foo3bar
+Foo12Bar
+Foo00012Bar
+foo4bar
