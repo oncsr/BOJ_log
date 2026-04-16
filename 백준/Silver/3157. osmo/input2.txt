@@ -1,0 +1,11 @@
+5
+patka
+guska
+macka
+klopa
+krava
+4
+patka
+guska
+macka
+krava
