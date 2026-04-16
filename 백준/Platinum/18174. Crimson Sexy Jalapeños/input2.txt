@@ -1,0 +1,6 @@
+3 5 1
+2 3
+left 1
+left 1
+right 1
+yuck!
