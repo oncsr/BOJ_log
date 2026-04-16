@@ -1,0 +1,4 @@
+3
+ABCDE 4
+BCDEF 2
+CDEFG 3
