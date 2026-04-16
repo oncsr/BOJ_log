@@ -1,0 +1,6 @@
+5 6
+A Z A C Z C
+O C O Z A Z
+O Z Z A O A
+C Z A Z A C
+Z O C O O Z
