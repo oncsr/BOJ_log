@@ -1,0 +1,1 @@
+exec("print(['chan','kang'][input()=='2']);"*int(input()))
