@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <bits/extc++.h>
 using namespace std;
 
 int main() {
@@ -14,10 +13,10 @@ int main() {
 		V[a].emplace_back(b, c);
 	}
 
-	vector<__gnu_pbds::priority_queue<int, less<int>, __gnu_pbds::pairing_heap_tag>> D(n + 1);
+	vector<priority_queue<int>> D(n + 1);
 	D[1].push(0);
-	__gnu_pbds::priority_queue<pair<int,int>, greater<pair<int,int>>, __gnu_pbds::pairing_heap_tag> Q;
-	Q.push({0, 1});
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> Q;
+	Q.emplace(0, 1);
 	while (!Q.empty()) {
 		auto [dist, now] = Q.top();
 		Q.pop();
@@ -26,12 +25,12 @@ int main() {
 			int res = dist + cost;
 			if (D[next].size() < k) {
 				D[next].push(res);
-				Q.push({res, next});
+				Q.emplace(res, next);
 			}
 			else if (D[next].size() == k && res < D[next].top()) {
 				D[next].pop();
 				D[next].push(res);
-				Q.push({res, next});
+				Q.emplace(res, next);
 			}
 		}
 	}
