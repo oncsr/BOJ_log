@@ -1,0 +1,1 @@
+Scanf.scanf "%d %d" (fun a b->if a+b=3 then print_string "ChongChong" else print_string "GomGom");;
