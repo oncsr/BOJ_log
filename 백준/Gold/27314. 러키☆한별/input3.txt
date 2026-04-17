@@ -1,0 +1,5 @@
+4 4
+#PPH
+X..P
+PPPP
+#XXX
