@@ -1,0 +1,4 @@
+Scanf.scanf "%d" (fun x ->
+    if x mod 2 = 1 then Printf.printf "evoLmoCicS"
+    else Printf.printf "SciComLove"
+  );;
