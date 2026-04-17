@@ -1,0 +1,4 @@
+Scanf.scanf "%d %d %d" (fun n m k ->
+    let res = m*k/n in
+    print_int res
+  );;
