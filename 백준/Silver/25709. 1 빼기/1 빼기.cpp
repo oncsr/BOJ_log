@@ -1,37 +1,28 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
 using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
 
-	int N;
-	cin >> N;
-
-	int ans = 0;
-	while (N > 0) {
-		string n = to_string(N);
-
-		// next : N에서 1을 모두 제외한 문자열
-		string next = "";
-		// cnt : N에 존재하는 1의 개수
-		int cnt = 0;
-		for (char i : n) {
-			if (i != '1')	next += i;
-			else	cnt++;
+	int n;
+	cin >> n;
+	int cnt = 0;
+	while (n) {
+		string a = to_string(n);
+		bool f = 0;
+		for (int i = 0; i < a.size(); i++) {
+			if (a[i] == '1') {
+				a.erase(a.begin() + i);
+				if (!a.empty())	n = stoi(a);
+				else	n = 0;
+				f = 1;
+				break;
+			}
 		}
-
-		// 만약 N에 1이 없다면, N을 1 감소시킨다.
-		if (n == next) {
-			N--;
-			ans++;
-		}
-		// N에 1이 있다면, 1을 모두 제외한 숫자로 바꿔준다.
-		else {
-			if (next.empty())	N = 0;
-			else	N = stoi(next);
-			ans += cnt;
-		}
+		if (!f)	n--;
+		cnt++;
 	}
-	cout << ans;
+	cout << cnt;
 
 }
