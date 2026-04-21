@@ -1,49 +1,46 @@
-#include <iostream>
-#include <vector>
-#include <tuple>
+#include <bits/stdc++.h>
 using namespace std;
 using ii = pair<int, int>;
 
-pair<int, char> arr[101][101]{};
+ii arr[101][101]{};
 int N, M, R;
 vector<tuple<int, int, int>> ATT;
 vector<ii> DEF;
 int score = 0;
 
-// 도미노 쓰러뜨리기 함수
 void down(char dir, int x, int y, int k) {
 	if (dir == 'E') {
 		for (int j = y + 1; j <= M && j <= y + k; j++) {
-			if (arr[x][j].second == 'S') {
+			if (arr[x][j].second == 1) {
 				score++;
-				arr[x][j].second = 'F';
+				arr[x][j].second = 0;
 				down(dir, x, j, arr[x][j].first - 1);
 			}
 		}
 	}
 	else if (dir == 'W') {
 		for (int j = y - 1; j >= 1 && j >= y - k; j--) {
-			if (arr[x][j].second == 'S') {
+			if (arr[x][j].second == 1) {
 				score++;
-				arr[x][j].second = 'F';
+				arr[x][j].second = 0;
 				down(dir, x, j, arr[x][j].first - 1);
 			}
 		}
 	}
 	else if (dir == 'S') {
 		for (int i = x + 1; i <= N && i <= x + k; i++) {
-			if (arr[i][y].second == 'S') {
+			if (arr[i][y].second == 1) {
 				score++;
-				arr[i][y].second = 'F';
+				arr[i][y].second = 0;
 				down(dir, i, y, arr[i][y].first - 1);
 			}
 		}
 	}
 	else {
 		for (int i = x - 1; i >= 1 && i >= x - k; i--) {
-			if (arr[i][y].second == 'S') {
+			if (arr[i][y].second == 1) {
 				score++;
-				arr[i][y].second = 'F';
+				arr[i][y].second = 0;
 				down(dir, i, y, arr[i][y].first - 1);
 			}
 		}
@@ -51,19 +48,15 @@ void down(char dir, int x, int y, int k) {
 }
 
 void solve() {
-	// 반복문으로 R개의 라운드 수행
 	for (int i = 0; i < R; i++) {
-		// 공격수 턴
 		auto [x, y, z] = ATT[i];
-		if (arr[x][y].second == 'S') {
+		if (arr[x][y].second == 1) {
 			score++;
-			arr[x][y].second = 'F';
+			arr[x][y].second = 0;
 			down(z, x, y, arr[x][y].first - 1);
 		}
-
-		// 수비수 턴
 		auto [p, q] = DEF[i];
-		arr[p][q].second = 'S';
+		arr[p][q].second = 1;
 	}
 }
 
@@ -75,7 +68,7 @@ int main() {
 		for (int j = 1; j <= M; j++) {
 			int a;
 			cin >> a;
-			arr[i][j] = { a,'S' };
+			arr[i][j] = { a,1 };
 		}
 	}
 
@@ -93,7 +86,7 @@ int main() {
 	cout << score << '\n';
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= M; j++) {
-			cout << arr[i][j].second << ' ';
+			cout << (arr[i][j].second ? 'S' : 'F') << ' ';
 		}
 		cout << '\n';
 	}
