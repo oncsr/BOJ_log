@@ -1,0 +1,2 @@
+#include<bits/stdc++.h>
+using namespace std;using I=pair<unsigned,int>;main(){int N,x;priority_queue<I,vector<I>,greater<>>Q;for(cin>>N;N--;){cin>>x;x?Q.push({abs(x),x}):(Q.push({3e9,0}),cout<<Q.top().second<<'\n',Q.pop());}}
