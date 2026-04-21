@@ -5,6 +5,14 @@ int N, white = 0, blue = 0;
 int arr[129][129]{};
 
 void Cut(int x, int y, int len) {
+	// 탈출 조건 1
+	if (len == 1) {
+		if (arr[x][y] == 0)	white++;
+		else	blue++;
+
+		return;
+	}
+
 	int temp_white = 0, temp_blue = 0;
 	for (int i = x; i < x + len; i++) {
 		for (int j = y; j < y + len; j++) {
@@ -12,7 +20,7 @@ void Cut(int x, int y, int len) {
 			else	temp_blue++;
 		}
 	}
-	// 탈출 조건
+	// 탈출 조건 2
 	if (temp_white == len * len) {
 		white++;
 		return;
@@ -31,7 +39,7 @@ void Cut(int x, int y, int len) {
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-
+	
 	cin >> N;
 	for (int i = 0; i < N; i++)
 		for (int j = 0; j < N; j++)
