@@ -1,9 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-char arr[64][64]{};
+char arr[65][65]{};
+string ans = "";
 
-void recursion(int x, int y, int len) {
+void divide(int x, int y, int len) {
+	if (len == 1) {
+		ans += arr[x][y];
+		return;
+	}
+
 	int zero = 0, one = 0;
 	for (int i = x; i < x + len; i++) {
 		for (int j = y; j < y + len; j++) {
@@ -13,29 +19,32 @@ void recursion(int x, int y, int len) {
 	}
 
 	if (zero == len * len) {
-		cout << 0;
+		ans += '0';
 		return;
 	}
 	if (one == len * len) {
-		cout << 1;
+		ans += '1';
 		return;
 	}
 
-	cout << '(';
-	recursion(x, y, len / 2);
-	recursion(x, y + len / 2, len / 2);
-	recursion(x + len / 2, y, len / 2);
-	recursion(x + len / 2, y + len / 2, len / 2);
-	cout << ')';
-
+	ans += '(';
+	divide(x, y, len / 2);
+	divide(x, y + len / 2, len / 2);
+	divide(x + len / 2, y, len / 2);
+	divide(x + len / 2, y + len / 2, len / 2);
+	ans += ')';
 }
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
+	
+	int N;
+	cin >> N;
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			cin >> arr[i][j];
+		}
+	}
 
-	int n;
-	cin >> n;
-	for (int i = 0; i < n; i++)	for (int j = 0; j < n; j++)	cin >> arr[i][j];
-	recursion(0, 0, n);
-
+	divide(1, 1, N);
+	cout << ans;
 }
