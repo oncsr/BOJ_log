@@ -1,31 +1,31 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 using ll = long long;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-
-	ll N, M, arr[1'000'000]{};
+	int N;
+	ll M;
 	cin >> N >> M;
-
-	for (int i = 0; i < N; i++)	cin >> arr[i];
-
-	ll low, mid, high;
-	low = 0;
-	high = 2'000'000'000;
-	mid = (low + high + 1) / 2;
-	while (low < high) {
-		
-		ll sum = 0;
-		for (int i = 0; i < N; i++) {
-			if (arr[i] >= mid)	sum += arr[i] - mid;
-		}
-
-		if (sum >= M)	low = mid;
-		else	high = mid - 1;
-		mid = (low + high + 1) / 2;
+	ll arr[1000000]{}, mx = 0;
+	for (int i = 0; i < N; i++) {
+		cin >> arr[i];
+		mx = max(mx, arr[i]);
 	}
-
-	cout << mid;
-
+	ll s = 0, e = mx, m = (s + e + 1) / 2;
+	while (s <= e) {
+		ll cnt = 0;
+		for (int i = 0; i < N; i++)
+			cnt += max(0LL, arr[i] - m);
+		if (cnt >= M) {
+			if (s == m)	break;
+			s = m;
+		}
+		else {
+			if (e == m - 1)	break;
+			e = m - 1;
+		}
+		m = (s + e + 1) / 2;
+	}
+	cout << m;
 }
