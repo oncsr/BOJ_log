@@ -1,31 +1,53 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-	
 	int N;
-	cin >> N;
-	string a, b, c;
-	cin >> a >> b >> c;
-	map<char, int> M;
-	for (int h = 1; h < 4; h++) {
-		M['H'] = h;
-		for (int j = 1; j < 4; j++) {
-			if (h == j)	continue;
-			M['J'] = j;
-			for (int s = 1; s < 4; s++) {
-				if (j == s || h == s)	continue;
-				M['S'] = s;
-				string A = "", B = "", C = "";
-				for (int i = 0; i < N; i++) {
-					A += M[a[i]];
-					B += M[b[i]];
-					C += M[c[i]];
-				}
-				if (A > B && B > C) { cout << "HJS! HJS! HJS!"; return 0; }
-			}
-		}
+	string P, Q, R;
+	string yes = "HJS! HJS! HJS!";
+	string no = "Hmm...";
+	cin >> N >> P >> Q >> R;
+	int i = 0;
+	for (; i < N; i++) {
+		if (P[i] == Q[i] && Q[i] == R[i])	continue;
+		break;
 	}
-	cout << "Hmm...";
+	if (i == N) {
+		cout << no;
+		return 0;
+	}
+
+	if (P[i] == Q[i] && Q[i] != R[i]) {
+		int j = i;
+		for (; j < N; j++) {
+			if (P[j] == Q[j])	continue;
+			break;
+		}
+		if (j == N) {
+			cout << no;
+			return 0;
+		}
+		if (P[j] == R[i] && Q[j] == Q[i])	cout << no;
+		else	cout << yes;
+	}
+	else if (P[i] != Q[i] && Q[i] == R[i]) {
+		int j = i;
+		for (; j < N; j++) {
+			if (Q[j] == R[j])	continue;
+			break;
+		}
+		if (j == N) {
+			cout << no;
+			return 0;
+		}
+		if (Q[j] == Q[i] && R[j] == P[i])	cout << no;
+		else	cout << yes;
+	}
+	else if (P[i] == R[i] && P[i] != Q[i]) {
+		cout << no;
+	}
+	else {
+		cout << yes;
+	}
 }
