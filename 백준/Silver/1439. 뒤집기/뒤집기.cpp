@@ -1,20 +1,18 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-
-	string s;
-	cin >> s;
-
-	int cnt[2]{};
-	char temp = s[0];
-	for (char i : s) {
-		if (temp != i)	cnt[temp - '0']++;
+	string a;
+	cin >> a;
+	int one = 0, zero = 0;
+	char temp = ' ';
+	for (char i : a) {
+		if (i != temp) {
+			if (i == '1')	one++;
+			else	zero++;
+		}
 		temp = i;
 	}
-	cnt[temp - '0']++;
-
-	cout << min(cnt[0], cnt[1]);
-
+	cout << min(one, zero);
 }
