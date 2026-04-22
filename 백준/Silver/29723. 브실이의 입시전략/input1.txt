@@ -1,0 +1,9 @@
+6 3 2
+calculus 100
+probability 70
+physics 50
+chemistry 80
+python 90
+algorithm 100
+physics
+python
