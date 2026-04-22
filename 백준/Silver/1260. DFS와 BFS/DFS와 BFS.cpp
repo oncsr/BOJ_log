@@ -1,29 +1,32 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
 using namespace std;
 
-int V[1001][1001]{};
-int vis[1001]{}, N;
+int graph[1001][1001]{};
+int N, M, V;
+int visit1[1001]{}, visit2[1001]{};
 
-void dfs(int n) {
+void DFS(int n) {
 	cout << n << ' ';
 	for (int i = 1; i <= N; i++) {
-		if (!vis[i] && V[n][i]) {
-			vis[i]++;
-			dfs(i);
+		if (visit1[i] == 0 && graph[n][i]) {
+			visit1[i]++;
+			DFS(i);
 		}
 	}
 }
 
-void bfs(int n) {
+void BFS(int n) {
 	queue<int> Q;
+	visit2[n]++;
 	Q.push(n);
 	while (!Q.empty()) {
 		int now = Q.front();
 		cout << now << ' ';
 		Q.pop();
 		for (int i = 1; i <= N; i++) {
-			if (!vis[i] && V[now][i]) {
-				vis[i]++;
+			if (visit2[i] == 0 && graph[now][i]) {
+				visit2[i]++;
 				Q.push(i);
 			}
 		}
@@ -31,21 +34,20 @@ void bfs(int n) {
 }
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
 
-	int M, S;
-	cin >> N >> M >> S;
+	cin >> N >> M >> V;
 	for (int i = 0; i < M; i++) {
 		int a, b;
 		cin >> a >> b;
-		V[a][b] = 1;
-		V[b][a] = 1;
+		// a에서 b로, b에서 a로 가는 간선이 존재한다고 표시
+		graph[a][b] = graph[b][a] = 1;
 	}
-	vis[S]++;
-	dfs(S);
-	fill(vis, vis + 1001, 0);
-	vis[S]++;
+
+	visit1[V]++;
+	DFS(V);
 	cout << '\n';
-	bfs(S);
+	BFS(V);
 
 }
