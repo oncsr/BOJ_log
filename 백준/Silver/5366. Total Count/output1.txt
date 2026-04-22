@@ -1,0 +1,5 @@
+Tie-fighter: 4
+V-wing: 4
+Starfighter: 4
+Tri-fighter: 2
+Grand Total: 14
