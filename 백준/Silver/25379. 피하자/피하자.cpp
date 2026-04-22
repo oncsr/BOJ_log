@@ -1,26 +1,24 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <bitset>
 using namespace std;
 using ll = long long;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-
 	int N;
 	cin >> N;
-
-	ll odd = 0, even = 0;
-	ll zero = 0, one = 0;
+	ll one = 0, l1 = 0, two = 0, l2 = 0;
 	for (ll i = 0; i < N; i++) {
-		ll a;
+		int a;
 		cin >> a;
-		if (a % 2 == 0) {
-			even += (i - zero++);
+		if (a & 1) {
+			one += i - l1;
+			l1++;
 		}
 		else {
-			odd += (i - one++);
+			two += i - l2;
+			l2++;
 		}
 	}
-
-	cout << min(odd, even);
-
+	cout << min(one, two);
 }
