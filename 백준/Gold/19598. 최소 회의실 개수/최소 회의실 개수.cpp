@@ -1,42 +1,26 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
+#include <algorithm>
 using namespace std;
 
-bool cmp(int a, int b) {
-	return abs(a) < abs(b);
-}
+using ii = pair<int, int>;
 
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
-
-	int N;
+	int N, t;
 	cin >> N;
 
-	// S : 회의 시작 시간들
-	// E : 회의 종료 시간들
-	vector<int> E;
-	for (int i = 0; i < N; i++) {
-		int a, b;
-		cin >> a >> b;
-		E.push_back(a);
-		E.push_back(-b);
+	ii arr[100000]{};
+	for (int i = 0; i < N; i++)	cin >> arr[i].first >> arr[i].second;
+	sort(arr, arr + N);
+	priority_queue<int, vector<int>, greater<> > Q;
+	Q.push(arr[0].second);
+	int ans = 1;
+	for (int i = 1; i < N; i++) {
+		while (!Q.empty() && arr[i].first >= Q.top())	Q.pop();
+		Q.push(arr[i].second);
+		ans = max(ans, (int)Q.size());
 	}
-	sort(E.begin(), E.end(), cmp);
-
-	int ans = 0, cnt = 0, idx = 0;
-	// 시간 순으로 보기
-	while (idx < E.size()) {
-		int now = abs(E[idx]);
-		// 현재 시간에 발생하는 이벤트를 모두 처리
-		while (idx < E.size() && abs(E[idx]) == now) {
-			// 이벤트가 회의 시작이라면, 방의 개수 늘리기
-			if (E[idx] >= 0)	cnt++;
-			// 이벤트가 회의 종료라면, 방의 개수 줄이기
-			else	cnt--;
-			idx++;
-		}
-		ans = max(ans, cnt);
-	}
-
 	cout << ans;
 
 }
