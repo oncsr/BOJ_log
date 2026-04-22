@@ -1,19 +1,36 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
 using namespace std;
 
+// 이제 pair<int, int> 는 ii와 같다.
+using ii = pair<int, int>;
+
+
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
 
 	int N, L;
 	cin >> N >> L;
-	deque<pair<int, int>> D;
-	for (int i = 0; i < N; i++) {
+
+	priority_queue<ii, vector<ii>, greater<ii>> Q;
+
+	for (int i = 0; i < N; i++)
+	{
 		int a;
 		cin >> a;
-		while (!D.empty() && D.back().first >= a)	D.pop_back();
-		D.emplace_back(a, i);
-		while (i - D.front().second >= L)	D.pop_front();
-		cout << D.front().first << ' ';
+
+		Q.push({ a,i });
+
+		int id = Q.top().second;
+
+		while (i - id >= L)
+		{
+			Q.pop();
+			id = Q.top().second;
+		}
+
+		cout << Q.top().first << ' ';
 	}
 
 }
