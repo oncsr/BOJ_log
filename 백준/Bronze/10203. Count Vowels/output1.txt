@@ -1,0 +1,3 @@
+The number of vowels in despicable is 4.
+The number of vowels in gru is 1.
+The number of vowels in nth is 0.
