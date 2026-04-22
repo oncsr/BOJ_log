@@ -1,24 +1,30 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 using ll = long long;
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-
-	int K, N;
+	int K;
+	ll N, a, mx = 0, arr[10000]{};
 	cin >> K >> N;
-	vector<int> lan(K);
-	for (int& i : lan)	cin >> i;
-
-	unsigned int low = 1, high = (1 << 31) - 1, mid = (low + high + 1) / 2;
-	while (low < high) {
-		int cnt = 0;
-		for (int& i : lan)	cnt += i / mid;
-
-		if (cnt < N)	high = mid - 1;
-		else	low = mid;
-		mid = (low + high + 1) / 2;
+	for (int i = 0; i < K; i++) {
+		cin >> a;
+		arr[i] = a;
+		mx = max(mx, a);
 	}
-	cout << mid;
-
+	ll s = 0, e = mx, m = (s + e + 1) / 2;
+	while (s <= e) {
+		ll cnt = 0;
+		for (int i = 0; i < K; i++)
+			cnt += arr[i] / m;
+		if (cnt >= N) {
+			if (s == m)	break;
+			s = m;
+		}
+		else {
+			if (e == m - 1)	break;
+			e = m - 1;
+		}
+		m = (s + e + 1) / 2;
+	}
+	cout << m;
 }
