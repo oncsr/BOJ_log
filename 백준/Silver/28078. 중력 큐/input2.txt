@@ -1,0 +1,14 @@
+13
+push b
+rotate r
+count b
+rotate r
+push b
+push w
+rotate r
+push b
+push b
+count b
+rotate l
+push b
+count b
