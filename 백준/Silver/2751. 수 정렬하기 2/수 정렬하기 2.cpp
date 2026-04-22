@@ -1,18 +1,24 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
+	ios_base::sync_with_stdio(NULL);
+	cin.tie(NULL);
 
-	int n;
-	set<int> S;
-	for (cin >> n; n--;) {
+	int N;
+	cin >> N;
+	vector<int> Vec;
+	for (int i = 0; i < N; i++) {
 		int a;
 		cin >> a;
-		S.insert(a);
+		Vec.push_back(a);
 	}
-	for (int i : S)	cout << i << '\n';
-	
 
+	sort(Vec.begin(), Vec.end());
+
+	for (int i = 0; i < N; i++) {
+		cout << Vec[i] << '\n';
+	}
 }
