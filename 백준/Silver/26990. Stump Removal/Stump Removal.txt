@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+	int a, n, temp = 0, ex = 0;
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++) {
+		scanf("%d", &a);
+		if (ex) {
+			if (a >= temp) {
+				ex = 0;
+				if (i == n)	printf("%d", i);
+			}
+			temp = a;
+		}
+		else {
+			if (a <= temp) {
+				printf("%d\n", i - 1);
+				if (a < temp)	ex = 1;
+			}
+			temp = a;
+			if (i == n && !ex)	printf("%d", i);
+		}
+	}
+}
