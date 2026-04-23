@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
+#include <set>
 using namespace std;
 using ii = pair<int, int>;
 
@@ -42,7 +44,7 @@ int main() {
 		for (int j = 0; j < m; j++) {
 			if (map[i][j])	continue;
 			
-			unordered_set<int> S;
+			set<int> S;
 			if (i) {
 				if (map[i - 1][j])
 					S.insert(map[i - 1][j]);
