@@ -1,0 +1,7 @@
+2
+5
+abadd
+abada
+3
+cba
+abc
