@@ -1,0 +1,3 @@
+.abb
+aabb
+aa.b
