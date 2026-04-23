@@ -1,0 +1,8 @@
++-----+          +-------------+
+I-X-X-I          I-X-X-X-X-X-X-I
+I-X-X-I          I-X-X-X-X-X-X-I
++-----+          I-X-X-X-X-X-X-I
+                 I-X-X-X-X-X-X-I
+                 I-X-X-X-X-X-X-I
+                 I-X-X-X-X-X-X-I
+                 +-------------+
