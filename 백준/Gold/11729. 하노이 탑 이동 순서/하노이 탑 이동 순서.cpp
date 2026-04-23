@@ -1,23 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void Hanoi(int n, int now, int target, int checkpoint) {
+void Hanoi(int n, int now, int dest) {
 	if (n == 1) {
-		cout << now << ' ' << target << '\n';
+		cout << now << ' ' << dest << '\n';
 		return;
 	}
-	Hanoi(n - 1, now, checkpoint, target);
-	Hanoi(1, now, target, checkpoint);
-	Hanoi(n - 1, checkpoint, target, now);
+
+	int other = 6 - (now + dest);
+
+	Hanoi(n - 1, now, other);
+	cout << now << ' ' << dest << '\n';
+	Hanoi(n - 1, other, dest);
 }
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	
 	int N;
 	cin >> N;
-	
-	cout << (1 << N) - 1 << '\n';
-	Hanoi(N, 1, 3, 2);
-
+	cout << ((1 << N) - 1) << '\n';
+	Hanoi(N, 1, 3);
 }
