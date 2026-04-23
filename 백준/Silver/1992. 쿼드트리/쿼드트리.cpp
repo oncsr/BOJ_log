@@ -1,50 +1,49 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-char arr[65][65]{};
-string ans = "";
+int m[65][65]{}, n;
 
-void divide(int x, int y, int len) {
-	if (len == 1) {
-		ans += arr[x][y];
+void solve(int x, int y, int xx, int yy) {
+	if (x == xx) {
+		cout << m[x][y];
 		return;
 	}
-
-	int zero = 0, one = 0;
-	for (int i = x; i < x + len; i++) {
-		for (int j = y; j < y + len; j++) {
-			if (arr[i][j] == '0')	zero++;
-			else	one++;
+	int one = 0, zero = 0;
+	for (int i = x; i <= xx; i++) {
+		for (int j = y; j <= yy; j++) {
+			if (m[i][j])	one++;
+			else	zero++;
 		}
 	}
-
-	if (zero == len * len) {
-		ans += '0';
+	int sz = (xx - x + 1) * (yy - y + 1);
+	if (one == sz) {
+		cout << 1;
 		return;
 	}
-	if (one == len * len) {
-		ans += '1';
+	else if (zero == sz) {
+		cout << 0;
 		return;
 	}
-
-	ans += '(';
-	divide(x, y, len / 2);
-	divide(x, y + len / 2, len / 2);
-	divide(x + len / 2, y, len / 2);
-	divide(x + len / 2, y + len / 2, len / 2);
-	ans += ')';
+	else {
+		cout << '(';
+		int mx = (x + xx) / 2;
+		int my = (y + yy) / 2;
+		solve(x, y, mx, my);
+		solve(x, my + 1, mx, yy);
+		solve(mx + 1, y, xx, my);
+		solve(mx + 1, my + 1, xx, yy);
+		cout << ')';
+	}
 }
 
 int main() {
-	
-	int N;
-	cin >> N;
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {
-			cin >> arr[i][j];
+	cin >> n;
+	char a;
+	for (int i = 1; i <= n; i++)
+		for (int j = 1; j <= n; j++) {
+			cin >> a;
+			m[i][j] = a - '0';
 		}
-	}
-
-	divide(1, 1, N);
-	cout << ans;
+	int one = 0, zero = 0;
+	solve(1, 1, n, n);
 }
