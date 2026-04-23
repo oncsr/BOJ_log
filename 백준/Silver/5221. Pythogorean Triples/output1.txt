@@ -1,0 +1,4 @@
+Found Pythogorean triples:  {3 4 5}
+Found Pythogorean triples:  {3000000 4000000 5000000}
+Found Pythogorean triples:  {3 4 5} {5 12 13}
+No Pythogorean triples found in the sequence.
