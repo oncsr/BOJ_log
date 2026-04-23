@@ -1,34 +1,34 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
+int visit[8]{};
 int N, M;
 int arr[8]{};
 
-void Backtracking(int now, vector<int> select) {
-
-	if (now == N) {
-		if (select.size() == M) {
-			for (int i : select)	cout << i << ' ';
-			cout << '\n';
+void R(int n, vector<int> ans) {
+	for (int i = 0; i < N; i++) {
+		if (!visit[i]) {
+			if (ans.empty() || ans.back() < arr[i]) {
+				visit[i]++;
+				ans.push_back(arr[i]);
+				if (n < M)	R(n + 1, ans);
+				else {
+					for (int i : ans)	cout << i << ' ';
+					cout << '\n';
+				}
+				visit[i]--;
+				ans.pop_back();
+			}
 		}
-		return;
 	}
-
-	select.push_back(arr[now]);
-	Backtracking(now + 1, select);
-
-	select.pop_back();
-	Backtracking(now + 1, select);
-
 }
-
 
 int main() {
 	cin >> N >> M;
+	vector<int> a;
 	for (int i = 0; i < N; i++)	cin >> arr[i];
-
 	sort(arr, arr + N);
-
-	Backtracking(0, {});
-
+	R(1, a);
 }
