@@ -1,33 +1,34 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <stack>
 using namespace std;
 
 int main() {
-	cin.tie(0)->sync_with_stdio(0);
-
-	int n, i = 0;
+	int n, cur = 1, a, arr[100001]{}, no = 0;
 	cin >> n;
-	stack<int> st;
-
-	vector<char> answer;
-
-	for (int j = 0; j < n; j++) {
-		int num;
-		cin >> num;
-		while (num > i) {
-			st.push(i + 1);
-			answer.push_back('+');
-			i++;
+	string ans = "";
+	for (int i = 0; i < n; i++) {
+		cin >> a;
+		if (a >= cur) {
+			for (int j = cur; j <= a; j++) {
+				if (!arr[j]) {
+					arr[j] = 1;
+					ans += "+\n";
+				}
+			}
 		}
-		if (st.top() != num) {
-			cout << "NO";
-			return 0;
+		else {
+			for (int j = cur - 1; j >= a; j--) {
+				if (arr[j] == 1 && j != a) {
+					cout << "NO";
+					no++;
+					break;
+				}
+			}
 		}
-		st.pop();
-		answer.push_back('-');
+		if (no)	break;
+		cur = a;
+		ans += "-\n";
+		arr[a] = 2;
 	}
-
-	for (int i = 0; i < answer.size(); i++) {
-		cout << answer[i] << '\n';
-	}
-
+	if (!no)	cout << ans;
 }
